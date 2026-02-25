@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { CheckCircle, Rocket, MessageCircle } from "lucide-astro";
+---
+
+<Layout title="¡Gracias por registrarte! | BeTogether">
+    <script is:inline>
+        // Esto dispara el evento de Cliente Potencial automáticamente al cargar la página
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'Lead');
+        }
+    </script>
+
+    <main class="min-h-screen pt-32 pb-20 bg-background-dark text-white flex items-center overflow-hidden relative">
+        <div class="absolute inset-0 z-0 overflow-hidden opacity-30">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-deep-purple rounded-full blur-3xl animate-float"></div>
+        </div>
+
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <div class="flex justify-center mb-8">
+                <div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(34,197,94,0.4)] animate-bounce">
+                    <CheckCircle class="w-12 h-12 text-white" />
+                </div>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-black mb-6">¡Bienvenido al <br><span class="gradient-text">Club de Pioneros!</span></h1>
+            
+            <p class="text-xl text-slate-300 mb-10 leading-relaxed">
+                Tu registro se ha completado con éxito. Ahora eres parte del grupo exclusivo que transformará el comercio en Colombia.
+            </p>
+
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-3xl mb-12">
+                <h3 class="text-2xl font-bold mb-4 text-primary">Próximos pasos:</h3>
+                <ul class="text-left space-y-4 text-lg">
+                    <li class="flex items-start gap-3">
+                        <Rocket class="w-6 h-6 text-primary shrink-0" />
+                        <span>Revisa tu **correo electrónico** (incluyendo spam), te enviamos los detalles de acceso.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <MessageCircle class="w-6 h-6 text-green-500 shrink-0" />
+                        <span>Un asesor se contactará contigo vía **WhatsApp** para validar tu categoría de producto.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-4 rounded-full font-bold transition-all no-underline">
+                    Volver al Inicio
+                </a>
+                <a href="https://wa.me/573155870958" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold shadow-xl transition-all flex items-center justify-center gap-2 no-underline">
+                    <MessageCircle class="w-5 h-5" />
+                    Hablar con un asesor
+                </a>
+            </div>
+        </div>
+    </main>
+    <Footer />
+</Layout>

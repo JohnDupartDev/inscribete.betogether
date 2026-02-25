@@ -1,0 +1,95 @@
+---
+/* Hero Component - BeTogether Astro */
+---
+<section class="relative min-h-[90vh] lg:min-h-screen  lg:pt-20 pb-36 flex items-center overflow-hidden bg-background-dark">
+    <div class="absolute inset-0 z-0">
+        <picture>
+            <img 
+                alt="Emprendedor exitoso BeTogether" 
+                class="w-full h-full object-cover scale-100"
+                src="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/portada-betogether.jpg"
+                loading="eager"
+                fetchpriority="high"
+            />
+        </picture>
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+        <div class="absolute inset-0 hero-gradient opacity-80 z-20"></div>
+        
+        <div class="absolute inset-0 opacity-30 z-30">
+            <div class="absolute top-20 left-10 w-64 h-64 bg-primary rounded-full blur-3xl animate-float"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse-slow"></div>
+        </div>
+    </div>
+
+    <div class="relative z-40 max-w-7xl mx-auto px-6 w-full p-0">
+        <div class="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-block animate-fade-in">
+                    <span class="hidden md:block px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs md:text-sm font-bold uppercase tracking-widest">
+                        🚀 ¡Llegamos a Colombia! - Cupos limitados: 300 pioneros
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white max-w-4xl drop-shadow-lg">
+                    Tú creas la <span class="gradient-text">marca</span>, <br class="hidden md:block"/> nosotros ponemos <span class="text-primary underline decoration-4 underline-offset-8 decoration-white/30">la Plataforma</span>.
+                </h1>
+                
+                <div class="text-base md:text-lg text-slate-100 max-w-lg leading-relaxed backdrop-blur-md bg-white/10 p-6 rounded-2xl border border-white/10 shadow-2xl">
+                    <p>
+                        <span class="font-bold text-xl md:text-2xl block mb-2 text-white">🚀 Oportunidad única:</span>
+                        Estamos buscando a los <strong class="text-white">primeros 300 emprendedores</strong> para transformar el comercio en Colombia.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#registro" class="bg-primary text-white text-center px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-xl shadow-primary/30 hover:shadow-primary/50 no-underline inline-flex items-center justify-center">
+                        Unirme al Club de Pioneros
+                        <span class="material-icons-round ml-2">arrow_forward</span>
+                    </a>
+                    <a href="#pilares" class="bg-white/10 text-white border border-white/30 backdrop-blur-md px-8 py-4 rounded-full text-lg font-bold text-center hover:bg-white/20 hover:scale-105 transition-all no-underline">
+                        Ver beneficios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wave-divider">
+        <svg class="fill-white dark:fill-background-dark transition-colors duration-500" preserveAspectRatio="none" viewBox="0 0 1200 120">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C49.1,13.84,105.7,35.34,166,49.19,203.76,57.84,263.82,64.21,321.39,56.44Z"></path>
+        </svg>
+    </div>
+</section>
+
+<style>
+    /* Clases de apoyo específicas */
+    .hero-gradient {
+        background: linear-gradient(135deg, rgba(45, 27, 105, 0.95) 0%, rgba(230, 0, 126, 0.6) 100%);
+    }
+
+    .wave-divider {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        z-index: 50;
+    }
+
+    .wave-divider svg {
+        position: relative;
+        display: block;
+        width: calc(150% + 1.3px);
+        height: 80px;
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s ease-out forwards;
+    }
+</style>

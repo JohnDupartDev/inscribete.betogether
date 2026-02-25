@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   BASE
+========================= */
+@layer base {
+  html {
+    @apply bg-background-light text-slate-900;
+  }
+
+  html.dark {
+    @apply bg-background-dark text-white;
+  }
+
+  body {
+    @apply min-h-screen transition-colors duration-300;
+  }
+}
+
+/* =========================
+   COMPONENTES PERSONALIZADOS
+========================= */
+
+.wave-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 10;
+}
+
+.wave-divider svg {
+  position: relative;
+  display: block;
+  width: calc(150% + 1.3px);
+  height: 80px;
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(45, 27, 105, 0.95) 0%,
+    rgba(230, 0, 126, 0.6) 100%
+  );
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ff00c8 0%, #ffb6c1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.grid-bg {
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, rgba(230, 0, 126, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(230, 0, 126, 0.05) 1px, transparent 1px);
+}

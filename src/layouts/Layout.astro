@@ -1,23 +1,53 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import "../styles/global.css";
+const { title = "BeTogether - Club de Pioneros" } = Astro.props;
+---
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+  <head>
+   
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+
+    <!-- Fuente -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Preload imagen hero -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/portada-betogether.jpg"
+    />
+  </head>
+
+  <body class="landing-pioneros bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300 antialiased">
+ <Header />
+    <slot />
+
+    <!-- Script Dark Mode -->
+    <script>
+      const toggleDark = () => {
+        document.documentElement.classList.toggle("dark");
+        localStorage.setItem(
+          "theme",
+          document.documentElement.classList.contains("dark") ? "dark" : "light"
+        );
+      };
+
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+        <ThemeToggle />
+<Footer />
+  </body>
+</html>

@@ -1,0 +1,93 @@
+---
+import { ChevronDown } from "lucide-astro";
+---
+
+<section class="py-24 bg-background-light dark:bg-background-dark" id="faq">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16 space-y-4">
+            <span class="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-bold uppercase tracking-widest">
+                Preguntas frecuentes  
+            </span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-deep-purple dark:text-white">
+                Todo lo que necesitas <span class="gradient-text">saber</span>
+            </h2>
+        </div>
+
+        <div class="space-y-4">
+            <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                <button class="faq-button w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    ¿Necesito experiencia previa en ecommerce?
+                    <ChevronDown class="w-5 h-5 transition-transform duration-300 rotate-180" />
+                </button>
+                <div class="faq-content px-6 pb-4 text-slate-600 dark:text-slate-400 block">
+                    No, nuestro equipo te guiará paso a paso. El 60% de nuestros pioneros empezaron desde cero.
+                </div>
+            </div>
+
+            <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                <button class="faq-button w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    ¿Cómo funciona la exportación a Canadá?
+                    <ChevronDown class="w-5 h-5 transition-transform duration-300" />
+                </button>
+                <div class="faq-content px-6 pb-4 text-slate-600 dark:text-slate-400 hidden">
+                    Nos encargamos de todo: documentación, envío, almacenamiento y distribución en territorio canadiense. Tú solo te enfocas en vender.
+                </div>
+            </div>
+
+            <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                <button class="faq-button w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    ¿Puedo cancelar mi membresía en cualquier momento?
+                    <ChevronDown class="w-5 h-5 transition-transform duration-300" />
+                </button>
+                <div class="faq-content px-6 pb-4 text-slate-600 dark:text-slate-400 hidden">
+                    Sí, sin permanencia. Cancela cuando quieras, sin multas ni letra pequeña.
+                </div>
+            </div>
+
+            <div class="faq-item bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                <button class="faq-button w-full px-6 py-4 text-left font-bold flex justify-between items-center hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    ¿Cuándo son los próximos festivales?
+                    <ChevronDown class="w-5 h-5 transition-transform duration-300" />
+                </button>
+                <div class="faq-content px-6 pb-4 text-slate-600 dark:text-slate-400 hidden">
+                    Próximas fechas: Bogotá (Mar 15-17), Medellín (Abr 5-7), Cali (Abr 26-28). Los pioneros tienen acceso prioritario.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const setupFaq = () => {
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const button = item.querySelector('.faq-button');
+            const content = item.querySelector('.faq-content');
+            const icon = item.querySelector('svg');
+
+            button?.addEventListener('click', () => {
+                const isOpen = !content?.classList.contains('hidden');
+                
+                // Cerrar otros (opcional, si quieres que solo haya uno abierto)
+                /*
+                document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                document.querySelectorAll('.faq-button svg').forEach(i => i.classList.remove('rotate-180'));
+                */
+
+                if (isOpen) {
+                    content?.classList.add('hidden');
+                    icon?.classList.remove('rotate-180');
+                } else {
+                    content?.classList.remove('hidden');
+                    icon?.classList.add('rotate-180');
+                }
+            });
+        });
+    };
+
+    // Inicializar
+    setupFaq();
+    // Reiniciar para View Transitions de Astro
+    document.addEventListener('astro:after-swap', setupFaq);
+</script>

@@ -1,11 +1,28 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro'; // <--- Importar aquí
+import Hero from '../components/Home/Hero.astro';
+import Stats from '../components/Home/Stats.astro';
+import Fase1 from '../components/Home/Fase1.astro';
+import Ecosistema from '../components/Home/Ecosistema.astro';
+import AfiliadoEstrella from '../components/Home/AfiliadoEstrella.astro';
+import ComoEmpezar from '../components/Home/ComoEmpezar.astro';
+import CtaGratis from '../components/Home/CtaGratis.astro';
+import FAQ from '../components/Home/FAQ.astro';
+import RegistroForm from '../components/Home/RegistroForm.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="BeTogether - Inscríbete">
+	<main class="pt-16 lg:pt-20 min-h-screen">
+		<Hero />
+		<Stats />
+		<Fase1 />
+		<Ecosistema /> 
+       <AfiliadoEstrella /> 
+       <ComoEmpezar /> 
+       <CtaGratis /> 
+       <FAQ />
+       <RegistroForm /> 
+		</main>
 </Layout>

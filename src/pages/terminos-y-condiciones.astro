@@ -1,0 +1,427 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { 
+  Gavel, 
+  CheckCircle, 
+  Book, 
+  CreditCard, 
+  Store, 
+  Truck, 
+  Tent, 
+  Info, 
+  Rocket,
+  ShieldCheck,
+  Star,
+  UserPlus,
+  Home,
+  RefreshCw,
+  Menu,
+  MessageCircle,
+  Award
+} from "lucide-astro";
+---
+
+<Layout title="Términos y Condiciones | BeTogether - Club de Pioneros">
+    <section class="bg-slate-900 pt-40 pb-24 text-white text-center relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="flex justify-center mb-6">
+                <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/30 animate-float">
+                    <Gavel class="text-white w-10 h-10" />
+                </div>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 tracking-tight text-white">Términos y <span class="text-primary">Condiciones</span></h1>
+            <p class="text-white/80 text-lg max-w-2xl mx-auto mb-6">La transparencia es parte de nuestra esencia. Conoce los términos que rigen nuestra relación con los emprendedores que confían en BeTogether.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div class="flex items-center justify-center gap-2 text-sm bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full w-fit border border-white/20">
+                    <ShieldCheck class="text-primary w-5 h-5" />
+                    <span>Better Together Company S.A.S </span>
+                </div>
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-full text-sm">
+                    <RefreshCw class="w-4 h-4 text-primary" />
+                    <span>Última actualización: 4 de febrero de 2026</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky top-20 z-40 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-4xl mx-auto px-6 py-3 overflow-x-auto scrollbar-hide">
+            <div class="flex gap-6 text-sm font-medium whitespace-nowrap">
+                <a href="#aceptacion" class="nav-link hover:text-primary flex items-center gap-1 transition-colors"><CheckCircle class="w-4 h-4" /> Aceptación</a>
+                <a href="#definiciones" class="nav-link hover:text-primary flex items-center gap-1 transition-colors"><Book class="w-4 h-4" /> Definiciones</a>
+                <a href="#membresias" class="nav-link hover:text-primary flex items-center gap-1 transition-colors"><Award class="w-4 h-4" /> Membresías</a>
+                <a href="#uso" class="nav-link hover:text-primary flex items-center gap-1 transition-colors"><Store class="w-4 h-4" /> Uso</a>
+                <a href="#transacciones" class="nav-link hover:text-primary flex items-center gap-1 transition-colors"><CreditCard class="w-4 h-4" /> Transacciones</a>
+                <a href="#logistica" class="nav-link hover:text-primary flex items-center gap-1 transition-colors"><Truck class="w-4 h-4" /> Logística</a>
+                <a href="#eventos" class="nav-link hover:text-primary flex items-center gap-1 transition-colors"><Tent class="w-4 h-4" /> Eventos</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 mb-8 shadow-sm border border-slate-100 dark:border-slate-800">
+            <h3 class="font-bold text-lg mb-4 flex items-center gap-2 text-black dark:text-white">
+                <Menu class="text-primary w-5 h-5" />
+                Contenido del documento
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                <a href="#aceptacion" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">1. Aceptación</a>
+                <a href="#definiciones" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">2. Definiciones</a>
+                <a href="#membresias" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">3. Registro y Membresías</a>
+                <a href="#uso" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">4. Uso de la Plataforma</a>
+                <a href="#transacciones" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">5. Transacciones y Pagos</a>
+                <a href="#logistica" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">6. Logística y Entregas</a>
+                <a href="#eventos" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">7. Eventos y Festivales</a>
+                <a href="#propiedad" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">8. Propiedad Intelectual</a>
+                <a href="#privacidad" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">9. Privacidad</a>
+                <a href="#terminacion" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">10. Suspensión</a>
+                <a href="#limitacion" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">11. Limitación</a>
+                <a href="#modificaciones" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">12. Modificaciones</a>
+                <a href="#jurisdiccion" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">13. Ley aplicable</a>
+                <a href="#contacto" class="hover:text-primary transition-colors flex items-center gap-1 font-medium italic">14. Contacto</a>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-16 shadow-xl border border-slate-100 dark:border-slate-800 legal-content">
+            
+            <div class="highlight-box p-6 rounded-2xl mb-8 flex items-start gap-4">
+                <Info class="text-primary w-8 h-8 shrink-0" />
+                <div>
+                    <p class="font-bold text-slate-900 dark:text-white mb-2">Bienvenido a Better Together</p>
+                    <p class="text-slate-600 dark:text-slate-400 mb-0">Al registrarte, acceder o utilizar nuestra plataforma (betogether.com.co), aceptas estar legalmente vinculado por estos Términos y Condiciones. Si no estás de acuerdo con alguna parte de estos términos, no podrás utilizar nuestros servicios.</p>
+                </div>
+            </div>
+
+            <h2 id="aceptacion">1. Aceptación de los Términos</h2>
+            <p>Bienvenido a Better Together (betogether.com.co). Al registrarte, acceder o utilizar nuestra plataforma, aceptas estar legalmente vinculado por estos Términos y Condiciones. Si no estás de acuerdo con alguna parte de estos términos, no podrás utilizar nuestros servicios.</p>
+            <p>Better Together es una plataforma de membresía que ofrece un ecosistema omnicanal para emprendedores y fundaciones en Colombia, combinando comercio electrónico, logística, y participación en eventos comerciales.</p>
+
+            <h2 id="definiciones">2. Definiciones</h2>
+            <ul>
+                <li>Plataforma: El sitio web betogether.com.co y todos sus servicios asociados.</li>
+                <li>Miembro: Emprendedor o fundación registrada con una membresía activa.</li>
+                <li>Productos: Artículos ofrecidos para la venta por los Miembros a través de la Plataforma.</li>
+                <li>Transacción: Cualquier compra realizada a través de la Plataforma.</li>
+                <li>Eventos: Festivales comerciales-musicales organizados por Better Together.</li>
+            </ul>
+
+            <h2 id="membresias">3. Registro y Membresías</h2>
+            <h3>3.1 Requisitos de Elegibilidad</h3>
+            <p>Para ser Miembro de Better Together, debes cumplir con los siguientes requisitos:</p>
+            <ul>
+                <li>Ofrecer productos 100% de producción local y nacional colombiana</li>
+                <li>Completar el proceso de registro y validación de calidad</li>
+                <li>Aceptar una visita digital o presencial para verificación de productos</li>
+                <li>Ser mayor de edad o contar con representación legal</li>
+                <li>Proporcionar información veraz y actualizada</li>
+            </ul>
+
+            <h3>3.2 Planes de Membresía</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 text-primary">
+                        <Rocket />
+                    </div>
+                    <h4 class="font-black text-lg mb-2 dark:text-white">Plan Pioneros</h4>
+                    <div class="text-2xl font-black text-primary mb-4">Gratuito</div>
+                    <ul class="text-xs space-y-2 !p-0 !bg-transparent border-none">
+                        <li>Hasta 50 transacciones mensuales</li>
+                        <li>Máximo 10 productos</li>
+                        <li>Comisión: 10% + $1,000 COP por transacción exitosa</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-2xl border-4 border-primary card-hover transform scale-105 shadow-xl">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 text-primary">
+                        <Store />
+                    </div>
+                    <h4 class="font-black text-lg mb-2 dark:text-white">Plan Emprendedor</h4>
+                    <div class="text-2xl font-black text-primary mb-4">$85,000 COP<span class="text-xs font-normal">/mes</span></div>
+                    <ul class="text-xs space-y-2 !p-0 !bg-transparent border-none">
+                        <li>Hasta 50 transacciones mensuales</li>
+                        <li>Máximo 20 productos</li>
+                        <li>Comisión: 7% + $900 COP por transacción exitosa</li>
+                        <li>Integración con Puntos Colombia</li>
+                        <li>Sin marca de agua en contenido</li>
+                        <li>Logística prioritaria AM</li>
+                        <li>Acceso al programa de embajadores</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-2xl border-2 border-slate-200 dark:border-slate-700 card-hover">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4 text-primary">
+                        <Award />
+                    </div>
+                    <h4 class="font-black text-lg mb-2 dark:text-white">Plan PRO</h4>
+                    <div class="text-2xl font-black text-primary mb-4">$120,000 COP<span class="text-xs font-normal">/mes</span></div>
+                    <ul class="text-xs space-y-2 !p-0 !bg-transparent border-none">
+                        <li>Hasta 60 transacciones mensuales</li>
+                        <li>Máximo 50 productos</li>
+                        <li>Comisión: 7% + $900 COP por transacción exitosa</li>
+                        <li>Todos los beneficios del Plan Emprendedor</li>
+                        <li>Recogidas y entregas AM/PM</li>
+                        <li>IA creativa para redes sociales</li>
+                        <li>IA estratégica para planes de marketing quincenales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>3.3 Facturación y Pagos</h3>
+            <ul>
+                <li>Las membresías se facturan mensualmente por adelantado</li>
+                <li>Las comisiones se deducen automáticamente de cada transacción</li>
+                <li>Los pagos se procesan a través de Wompi, nuestro aliado de pagos</li>
+                <li>Better Together se reserva el derecho de modificar precios con 30 días de aviso previo</li>
+            </ul>
+
+            <h2 id="uso">4. Uso de la Plataforma</h2>
+            <h3>4.1 Responsabilidades del Miembro</h3>
+            <p>Como Miembro, te comprometes a:</p>
+            <ul>
+                <li>Proporcionar descripciones precisas y honestas de tus productos</li>
+                <li>Mantener inventario actualizado</li>
+                <li>Cumplir con todas las leyes colombianas aplicables</li>
+                <li>Responder a consultas de clientes de manera oportuna</li>
+                <li>Garantizar la calidad de los productos ofrecidos</li>
+                <li>No vender productos prohibidos, falsificados o que infrinjan derechos de terceros</li>
+                <li>Mantener la confidencialidad de tus credenciales de acceso</li>
+            </ul>
+
+            <h3>4.2 Productos Prohibidos</h3>
+            <p>No se permite la venta de:</p>
+            <ul>
+                <li>Productos ilegales o que violen leyes colombianas</li>
+                <li>Artículos falsificados o que infrinjan propiedad intelectual</li>
+                <li>Productos peligrosos, tóxicos o que requieran permisos especiales sin documentación</li>
+                <li>Contenido ofensivo, discriminatorio o inapropiado</li>
+                <li>Productos de origen no colombiano</li>
+            </ul>
+
+            <h3>4.3 Contenido Generado</h3>
+            <p>Better Together crea contenido audiovisual (videos, fotos, gráficos, publicaciones) para promocionar los productos de los Miembros y/o su imagen. Al aceptar estos términos, otorgas a Better Together una licencia no exclusiva para usar, modificar y distribuir este contenido con fines promocionales.</p>
+
+            <h2 id="transacciones">5. Transacciones y Pagos</h2>
+            <h3>5.1 Procesamiento de Pagos</h3>
+            <ul>
+                <li>Todos los pagos se procesan a través de Wompi</li>
+                <li>Better Together no almacena información de tarjetas de crédito</li>
+                <li>Las comisiones se deducen automáticamente antes de transferir fondos al Miembro</li>
+                <li>Los fondos se transfieren según el calendario de pagos establecido</li>
+            </ul>
+
+            <h3>5.2 Reembolsos y Devoluciones</h3>
+            <ul>
+                <li>Cada Miembro debe establecer su propia política de devoluciones</li>
+                <li>Better Together facilita el proceso logístico de devoluciones</li>
+                <li>Los reembolsos son responsabilidad del Miembro vendedor</li>
+                <li>Wompi asiste en la resolución de disputas de transacciones</li>
+            </ul>
+
+            <h3>5.3 Disputas</h3>
+            <p>En caso de disputas entre compradores y Miembros:</p>
+            <ul>
+                <li>Wompi proporciona soporte en la investigación de conflictos</li>
+                <li>Better Together actúa como facilitador, no como árbitro</li>
+                <li>Los Miembros son responsables de resolver disputas con sus clientes</li>
+                <li>Better Together se reserva el derecho de suspender cuentas involucradas en disputas recurrentes</li>
+            </ul>
+
+            <h2 id="logistica">6. Logística y Entregas</h2>
+            <h3>6.1 Servicios Logísticos</h3>
+            <p>Better Together ofrece y gestiona el servicio de logistica mediante alianzas :</p>
+            <ul>
+                <li>Coordinación de envíos nacionales.</li>
+                <li>Servicios de almacenamiento unicamente por ahora en Toronto, Canada.</li>
+                <li>Gestión de inventario en la plataforma.</li>
+                <li>Procesamiento de devoluciones</li>
+                <li>Entregas urbanas con motorizados.</li>
+            </ul>
+
+            <h3>6.2 Responsabilidades</h3>
+            <ul>
+                <li>Better Together coordina la logística, pero no es responsable por daños durante el transporte.</li>
+                <li>Los Miembros deben empacar productos adecuadamente</li>
+                <li>Los tiempos de entrega son estimados y pueden variar</li>
+                <li>Better Together no se hace responsable por retrasos causados por terceros o fuerza mayor</li>
+            </ul>
+
+            <h2 id="eventos">7. Eventos y Festivales Comerciales</h2>
+            <h3>7.1 Participación en Eventos</h3>
+            <ul>
+                <li>Better Together organiza festivales comerciales-musicales cada 3 meses, esta sujeto a cambios.</li>
+                <li>Los Miembros pueden rentar infraestructura física para vender en eventos</li>
+                <li>La disponibilidad de espacios está sujeta a capacidad.</li>
+                <li>Las reservas y pagos se gestionan a través de la Plataforma</li>
+            </ul>
+
+            <h3>7.2 Normas de Eventos</h3>
+            <p>Durante los eventos, los Miembros deben:</p>
+            <ul>
+                <li>Cumplir con las normas del evento y del lugar</li>
+                <li>Mantener su espacio limpio y ordenado</li>
+                <li>Respetar a otros participantes y asistentes</li>
+                <li>Seguir las instrucciones del personal de Better Together</li>
+            </ul>
+
+            <h2 id="propiedad">8. Propiedad Intelectual</h2>
+            <p><strong>8.1 Propiedad de Better Together:</strong> Todos los derechos de propiedad intelectual sobre la Plataforma, incluyendo diseño, código, marca, y contenido original, son propiedad exclusiva de Better Together company.</p>
+            <p><strong>8.2 Contenido del Miembro:</strong> Los Miembros retienen la propiedad de sus productos y contenido original, pero otorgan a Better Together una licencia para usar, reproducir y distribuir dicho contenido con fines promocionales y operativos de la Plataforma.</p>
+
+            <h2 id="privacidad">9. Privacidad y Protección de Datos</h2>
+            <p>Better Together se compromete a proteger la información personal de acuerdo con la legislación colombiana de protección de datos (Ley 1581 de 2012). Consulta nuestra Política de Privacidad para más detalles sobre cómo recopilamos, usamos y protegemos tu información.</p>
+
+            <h2 id="terminacion">10. Suspensión y Terminación</h2>
+            <p><strong>10.1 Suspensión de Cuenta:</strong> Better Together puede suspender o terminar tu membresía si: violas estos Términos y Condiciones, proporcionas información falsa o engañosa, participas en actividades fraudulentas o ilegales, recibes quejas recurrentes de clientes, o no cumples con tus obligaciones de pago.</p>
+            <p><strong>10.2 Terminación Voluntaria:</strong> Los Miembros pueden cancelar su membresía en cualquier momento. Las membresías pagas no son reembolsables por el período ya facturado.</p>
+
+            <h2 id="limitacion">11. Limitación de Responsabilidad</h2>
+            <p>Better Together proporciona la Plataforma “tal cual” y no garantiza: Disponibilidad ininterrumpida del servicio, ausencia de errores o vulnerabilidades, resultados específicos de ventas o ingresos, compatibilidad con todos los dispositivos o navegadores. Better Together no será responsable por daños indirectos, incidentales, especiales o consecuentes derivados del uso de la Plataforma.</p>
+
+            <h2 id="modificaciones">12. Modificaciones</h2>
+            <p>Better Together se reserva el derecho de modificar estos Términos y Condiciones en cualquier momento. Los cambios significativos se notificarán con al menos 15 días de anticipación. El uso continuado de la Plataforma después de las modificaciones constituye aceptación de los nuevos términos.</p>
+
+            <h2 id="jurisdiccion">13. Ley Aplicable y Jurisdicción</h2>
+            <p>Estos Términos y Condiciones se rigen por las leyes de la República de Colombia. Cualquier disputa se resolverá en los tribunales competentes de Bogotá, Colombia.</p>
+
+            <h2 id="contacto">14. Contacto</h2>
+            <p>Para preguntas sobre estos Términos y Condiciones, contáctanos en: <strong>notificaciones@betogether.com.co</strong></p>
+            <p>Better Together company s.a.s Sitio web: betogether.com.co Correo electrónico: contacto@betogether.com.co</p>
+
+            <div class="mt-12 p-8 bg-slate-50 dark:bg-slate-800 rounded-2xl border-l-8 border-primary italic text-slate-700 dark:text-slate-300">
+                Al registrarte en Better Together, confirmas que has leído, entendido y aceptado estos Términos y Condiciones en su totalidad.
+            </div>
+        </div>
+
+        <div class="mt-12 flex flex-col md:flex-row gap-4 justify-center">
+            <a href="/#registro" class="bg-primary text-white px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2 no-underline">
+                <UserPlus class="w-5 h-5" />
+                Unirme al Club de Pioneros
+            </a>
+            <a href="/" class="border-2 border-primary text-primary px-8 py-4 rounded-full text-lg font-bold hover:bg-primary/5 transition-all flex items-center justify-center gap-2 no-underline">
+                <Home class="w-5 h-5" />
+                Volver al inicio
+            </a>
+        </div>
+    </main>
+
+</Layout>
+
+<style>
+    /* Estilos base legales */
+    .legal-content h2 { 
+        color: #2D1B69; 
+        font-weight: 800; 
+        font-size: 1.8rem; 
+        margin-top: 3rem; 
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid #E6007E20;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        scroll-margin-top: 100px;
+    }
+    
+    .legal-content h2::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 32px;
+        background: #E6007E;
+        border-radius: 4px;
+    }
+    
+    .legal-content h3 { 
+        color: #E6007E; 
+        font-weight: 700; 
+        font-size: 1.3rem; 
+        margin-top: 2rem; 
+        margin-bottom: 1rem;
+    }
+    
+    .legal-content p { 
+        color: #334155; 
+        line-height: 1.8; 
+        margin-bottom: 1.2rem; 
+        font-size: 1.05rem;
+    }
+    
+    .legal-content ul { 
+        list-style-type: none; 
+        padding: 1.5rem; 
+        margin-bottom: 1.5rem; 
+        background: #F8FAFC; 
+        border-radius: 1rem; 
+    }
+
+    :global(.dark) .legal-content ul { background: #1a1438; }
+    :global(.dark) .legal-content h2 { color: #FFFFFF; }
+    :global(.dark) .legal-content p, :global(.dark) .legal-content li { color: #cbd5e1; }
+    
+    .legal-content ul li {
+        padding-left: 2rem;
+        position: relative;
+        margin-bottom: 0.75rem;
+        color: #334155;
+        line-height: 1.6;
+    }
+
+    .legal-content ul li::before {
+        content: "✓";
+        color: #E6007E;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #E6007E10;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+    }
+
+    .highlight-box {
+        background: linear-gradient(135deg, #E6007E08 0%, #2D1B6908 100%);
+        border-left: 4px solid #E6007E;
+    }
+
+    .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -15px #E6007E40;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<script>
+    const setupLegalNav = () => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('h2[id]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = (section as HTMLElement).offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id') || '';
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-primary', 'font-black');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-primary', 'font-black');
+                }
+            });
+        });
+    };
+
+    setupLegalNav();
+    document.addEventListener('astro:after-swap', setupLegalNav);
+</script>

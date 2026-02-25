@@ -1,0 +1,116 @@
+---
+import { 
+  Store, 
+  CreditCard, 
+  PlaneTakeoff, 
+  Tent, 
+  Headset, 
+  BarChart3, 
+  Users,
+  ArrowRight 
+} from "lucide-astro";
+---
+
+<section class="py-24 bg-background-light dark:bg-background-dark relative overflow-hidden" id="pilares">
+    <div class="absolute inset-0 grid-bg opacity-50"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-16 space-y-4">
+            <span class="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-bold uppercase tracking-widest">
+                🎯 Infraestructura completa
+            </span>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-deep-purple dark:text-white">
+                Nuestro Ecosistema <span class="gradient-text">Omnicanal</span>
+            </h2>
+            <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+                Todo lo que necesitas para escalar tu negocio desde Colombia hacia el mundo, en una sola membresía. 
+                <span class="font-bold text-primary block mt-2">Todo incluido, cero complicaciones.</span>
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="group bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all card-hover shadow-sm hover:shadow-xl text-center md:text-left">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 mx-auto md:mx-0 group-hover:bg-primary group-hover:text-white transition-all group-hover:scale-110 text-primary">
+                    <Store class="w-8 h-8" />
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white flex items-center justify-center md:justify-start gap-2">
+                   Crea tu tienda online en minutos
+                </h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                    Personalízala con tu marca. Agrega productos, gestiona pedidos, inventario y supervisa pagos, ventas y logística desde un solo lugar.   
+                </p>
+                <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
+                    <a class="text-primary font-medium flex items-center justify-center md:justify-start gap-1 group-hover:gap-2 transition-all no-underline" href="#registro">
+                        Comenzar ahora <ArrowRight class="w-4 h-4" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="group bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all card-hover shadow-sm hover:shadow-xl text-center md:text-left">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 mx-auto md:mx-0 group-hover:bg-primary group-hover:text-white transition-all group-hover:scale-110 text-primary">
+                    <CreditCard class="w-8 h-8" />
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white flex items-center justify-center md:justify-start gap-2">
+                    Pagos rápidos y seguros <span class="text-[10px] bg-green-500 text-white px-2 py-1 rounded-full whitespace-nowrap">Wompi</span>
+                </h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  Pagos ágiles y seguros usando nuestra plataforma aliada Wompi en lo digital y presencial en toda Colombia.                 
+                </p>
+            </div>
+
+            <div class="group bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all card-hover shadow-sm hover:shadow-xl text-center md:text-left">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 mx-auto md:mx-0 group-hover:bg-primary group-hover:text-white transition-all group-hover:scale-110 text-primary">
+                    <PlaneTakeoff class="w-8 h-8" />
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">Logística Nacional e Internacional</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                    Envíos urbanos y nacionales en Colombia. Envíos a Canadá y servicio de storage.
+                </p>
+                <div class="mt-4 inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs font-bold">
+                    Estamos en Expansión
+                </div>
+            </div>
+
+            <div class="group bg-white dark:bg-slate-900 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-all card-hover shadow-sm hover:shadow-xl text-center md:text-left">
+                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 mx-auto md:mx-0 group-hover:bg-primary group-hover:text-white transition-all group-hover:scale-110 text-primary">
+                    <Tent class="w-8 h-8" />
+                </div>
+                <h3 class="text-xl font-bold mb-4 dark:text-white">Festivales Presenciales</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                    Vende en nuestros festivales de comercio en tu ciudad. Conecta con nuevos clientes, programa envíos, crece con tu marca.
+                </p>
+                <div class="mt-6 flex justify-center md:justify-start gap-2">
+                    <span class="px-2 py-1 bg-primary/10 text-primary rounded text-xs font-bold">Bogotá</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+            <div class="flex items-center justify-center md:justify-start gap-3 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                <Headset class="text-primary w-5 h-5" />
+                <span class="text-sm font-medium dark:text-slate-300">Soporte 24/7 prioritario</span>
+            </div>
+            <div class="flex items-center justify-center md:justify-start gap-3 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                <BarChart3 class="text-primary w-5 h-5" />
+                <span class="text-sm font-medium dark:text-slate-300">Dashboard en tiempo real</span>
+            </div>
+            <div class="flex items-center justify-center md:justify-start gap-3 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                <Users class="text-primary w-5 h-5" />
+                <span class="text-sm font-medium dark:text-slate-300">Comunidad privada de pioneros</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .grid-bg {
+        background-size: 50px 50px;
+        background-image: linear-gradient(to right, rgba(230,0,126,0.05) 1px, transparent 1px), 
+                          linear-gradient(to bottom, rgba(230,0,126,0.05) 1px, transparent 1px);
+    }
+    .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+    }
+</style>

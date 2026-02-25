@@ -1,0 +1,39 @@
+---
+import { Sun, Moon } from "lucide-astro";
+---
+
+<button
+  id="theme-toggle"
+  class="fixed bottom-6 left-6 z-[999] w-12 h-12 flex items-center justify-center rounded-full
+  bg-white/90 dark:bg-slate-900/90
+  backdrop-blur-xl
+  border border-slate-200 dark:border-slate-700
+  shadow-xl hover:scale-110 active:scale-95 transition-all duration-300"
+  aria-label="Toggle Dark Mode"
+>
+  <div class="dark:hidden flex items-center justify-center">
+    <Moon class="w-5 h-5 text-slate-700" />
+  </div>
+  <div class="hidden dark:flex items-center justify-center">
+    <Sun class="w-5 h-5 text-yellow-400" />
+  </div>
+</button>
+
+<script>
+  const setupToggle = () => {
+    const btn = document.getElementById("theme-toggle");
+    const html = document.documentElement;
+
+    // Usamos encadenamiento opcional (?.) para evitar el error de 'null'
+    btn?.addEventListener("click", () => {
+      const isDark = html.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  };
+
+  // Inicializar
+  setupToggle();
+
+  // Reiniciar si usas transiciones de página de Astro
+  document.addEventListener('astro:after-swap', setupToggle);
+</script>
