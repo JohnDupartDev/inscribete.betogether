@@ -3,51 +3,86 @@ import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import "../styles/global.css";
+
 const { title = "BeTogether - Club de Pioneros" } = Astro.props;
+const description = "Únete a BeTogether, el ecosistema omnicanal para emprendedores en Colombia. Transforma tu marca con logística pro, tiendas online y eventos masivos.";
+const siteUrl = "https://inscribete.betogether.com.co";
+const ogImage = "https://inscribete.betogether.com.co/wp-content/uploads/2026/02/portada-betogether.jpg";
 ---
 
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
   <head>
-   
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
 
-    <!-- Fuente -->
+    <meta name="description" content={description} />
+    <meta name="keywords" content="BeTogether, Emprendimiento Colombia, Ecommerce, Logística, Club de Pioneros, Vender Online, Festivales Bogotá" />
+    <meta name="author" content="BeTogether COMPANY" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={siteUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/logo-together.svg" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Preload imagen hero -->
     <link
       rel="preload"
       as="image"
       href="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/portada-betogether.jpg"
     />
+
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return 'light';
+      })();
+    
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
 
   <body class="landing-pioneros bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300 antialiased">
- <Header />
+    <Header />
+    
     <slot />
 
-    <!-- Script Dark Mode -->
     <script>
-      const toggleDark = () => {
-        document.documentElement.classList.toggle("dark");
-        localStorage.setItem(
-          "theme",
-          document.documentElement.classList.contains("dark") ? "dark" : "light"
-        );
+      const setupTheme = () => {
+        const theme = localStorage.getItem("theme") || "light";
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        }
       };
 
-      if (localStorage.getItem("theme") === "dark") {
-        document.documentElement.classList.add("dark");
-      }
+      setupTheme();
+      document.addEventListener('astro:after-swap', setupTheme);
     </script>
-        <ThemeToggle />
-<Footer />
+
+    <ThemeToggle />
+    <Footer />
   </body>
 </html>
