@@ -1,7 +1,7 @@
 ---
-/* Hero Component - BeTogether Astro */
+import { ArrowRight } from "lucide-astro";
 ---
-<section class="relative min-h-[90vh] lg:min-h-screen  lg:pt-20 pb-36 flex items-center overflow-hidden bg-background-dark">
+<section class="relative min-h-[90vh] lg:min-h-screen  lg:pt-16 pb-36 flex items-center overflow-hidden bg-background-dark">
     <div class="absolute inset-0 z-0">
         <picture>
             <img 
@@ -40,16 +40,32 @@
                         Estamos buscando a los <strong class="text-white">primeros 300 emprendedores</strong> para transformar el comercio en Colombia.
                     </p>
                 </div>
+<div class="flex flex-col sm:flex-row gap-4 pt-6 items-center justify-center lg:justify-start">
+    
+    <a 
+        href="#registro" 
+        class="group w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-full text-lg font-bold 
+        inline-flex items-center justify-center 
+        hover:scale-105 transition-all 
+        shadow-xl shadow-primary/30 hover:shadow-primary/50 
+        no-underline"
+    >
+        Unirme al Club de Pioneros
+        <ArrowRight class="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+    </a>
 
-                <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                    <a href="#registro" class="bg-primary text-white text-center px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-all shadow-xl shadow-primary/30 hover:shadow-primary/50 no-underline inline-flex items-center justify-center">
-                        Unirme al Club de Pioneros
-                        <span class="material-icons-round ml-2">arrow_forward</span>
-                    </a>
-                    <a href="#pilares" class="bg-white/10 text-white border border-white/30 backdrop-blur-md px-8 py-4 rounded-full text-lg font-bold text-center hover:bg-white/20 hover:scale-105 transition-all no-underline">
-                        Ver beneficios
-                    </a>
-                </div>
+    <a 
+        href="#pilares" 
+        class="w-full sm:w-auto bg-white/10 text-white border border-white/30 backdrop-blur-md 
+        px-8 py-4 rounded-full text-lg font-bold 
+        inline-flex items-center justify-center
+        text-center hover:bg-white/20 hover:scale-105 
+        transition-all no-underline"
+    >
+        Ver beneficios
+    </a>
+
+</div>
             </div>
         </div>
     </div>
