@@ -4,10 +4,11 @@ import { ArrowRight } from "lucide-astro";
 <section class="relative min-h-[90vh] lg:min-h-screen  lg:pt-16 pb-36 flex items-center overflow-hidden bg-background-dark">
     <div class="absolute inset-0 z-0">
         <picture>
+            <source media="(min-width: 768px)" srcset="/portada-betogether.jpg" />
             <img 
                 alt="Emprendedor exitoso BeTogether" 
-                class="w-full h-full object-cover scale-100"
-                src="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/portada-betogether.jpg"
+                class="hidden md:block w-full h-full object-cover scale-100"
+                src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
                 loading="eager"
                 fetchpriority="high"
             />

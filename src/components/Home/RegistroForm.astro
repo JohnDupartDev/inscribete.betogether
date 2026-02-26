@@ -37,8 +37,8 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
                         <input name="tel" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 outline-none transition-all text-white placeholder-white/40" placeholder="+57 3155870958" type="tel" required />
                     </div>
                     <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Categoría de Producto</label>
-                        <select name="categoria" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white appearance-none cursor-pointer">
+                        <label for="categoria" class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Categoría de Producto</label>
+                        <select id="categoria" name="categoria" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white appearance-none cursor-pointer">
                             <option value="moda" class="bg-[#120B2E]">Moda y Accesorios</option>
                             <option value="hogar" class="bg-[#120B2E]">Hogar y Decoración</option>
                             <option value="belleza" class="bg-[#120B2E]">Belleza y Salud</option>

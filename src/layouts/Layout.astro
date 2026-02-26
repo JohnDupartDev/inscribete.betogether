@@ -7,7 +7,7 @@ import "../styles/global.css";
 const { title = "BeTogether - Club de Pioneros" } = Astro.props;
 const description = "Únete a BeTogether, el ecosistema omnicanal para emprendedores en Colombia. Transforma tu marca con logística pro, tiendas online y eventos masivos.";
 const siteUrl = "https://inscribete.betogether.com.co";
-const ogImage = "https://inscribete.betogether.com.co/wp-content/uploads/2026/02/portada-betogether.jpg";
+const ogImage = "/portada-betogether.jpg";
 ---
 
 <!DOCTYPE html>
@@ -35,7 +35,7 @@ const ogImage = "https://inscribete.betogether.com.co/wp-content/uploads/2026/02
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
 
-    <link rel="icon" type="image/svg+xml" href="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/logo-together.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logobetogether.svg" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
