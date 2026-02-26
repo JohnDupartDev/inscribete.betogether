@@ -37,6 +37,7 @@ const ogImage = "/portada-betogether.jpg";
 
     <link rel="icon" type="image/svg+xml" href="/logobetogether.svg" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
@@ -46,7 +47,9 @@ const ogImage = "/portada-betogether.jpg";
     <link
       rel="preload"
       as="image"
-      href="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/portada-betogether.jpg"
+      href="/portada-betogether.jpg"
+      media="(min-width: 768px)"
+      fetchpriority="high"
     />
 
     <script is:inline>

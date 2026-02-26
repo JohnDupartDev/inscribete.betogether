@@ -29,7 +29,7 @@ import { Video, TrendingUp, MousePointerClick, Trophy, Star } from "lucide-astro
                                 <Video class="text-white w-5 h-5 md:w-6 md:h-6" />
                             </div>
                             <div>
-                                <h4 class="font-bold text-base md:text-lg dark:text-white flex flex-wrap items-center gap-2">
+                                <p class="font-bold text-base md:text-lg dark:text-white flex flex-wrap items-center gap-2">
                                     Creación de Contenido 
                                     <span class="hidden md:inline-block text-xs bg-[#ff00c8] text-white px-2 py-1 rounded-full">Beneficio</span>
                                 </h4>
@@ -42,7 +42,7 @@ import { Video, TrendingUp, MousePointerClick, Trophy, Star } from "lucide-astro
                                 <TrendingUp class="text-white w-5 h-5 md:w-6 md:h-6" />
                             </div>
                             <div>
-                                <h4 class="font-bold text-base md:text-lg dark:text-white flex flex-wrap items-center gap-2">
+                                <p class="font-bold text-base md:text-lg dark:text-white flex flex-wrap items-center gap-2">
                                     Contenido de Alto Impacto
                                     <span class="hidden md:inline-block text-xs bg-primary text-white px-2 py-1 rounded-full">Beneficio</span>
                                 </h4>
@@ -55,7 +55,7 @@ import { Video, TrendingUp, MousePointerClick, Trophy, Star } from "lucide-astro
                                 <MousePointerClick class="text-white w-5 h-5 md:w-6 md:h-6" />
                             </div>
                             <div>
-                                <h4 class="font-bold text-base md:text-lg dark:text-white flex flex-wrap items-center gap-2">
+                                <p class="font-bold text-base md:text-lg dark:text-white flex flex-wrap items-center gap-2">
                                     Exposición Masiva
                                     <span class="hidden md:inline-block text-xs bg-primary text-white px-2 py-1 rounded-full">Beneficio</span>
                                 </h4>
@@ -83,7 +83,12 @@ import { Video, TrendingUp, MousePointerClick, Trophy, Star } from "lucide-astro
 
                 <div class="relative group mt-8 lg:mt-0">
                     <div class="aspect-square bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 rounded-3xl overflow-hidden shadow-2xl">
-                        <img alt="Video Recording Session" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://inscribete.betogether.com.co/wp-content/uploads/2026/02/pienieros-f.jpg"/>
+                        <img alt="Video Recording Session" 
+                        alt="pioneros"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                         src="/pienieros-f.jpg"
+                         loading="lazy" 
+                          decoding="async"/>
                     </div>
                     
                     <div class="hidden md:block absolute -bottom-4 -right-2 md:-bottom-6 md:-right-6 bg-white dark:bg-slate-800 p-4 md:p-6 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 animate-float z-10 max-w-[200px] md:max-w-none">
