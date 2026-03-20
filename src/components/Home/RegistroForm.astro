@@ -84,30 +84,20 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
 
 <script is:inline>
     async function handleBeTogetherSubmit(event) {
-        // Detenemos cualquier comportamiento nativo
-        event.preventDefault();
-        event.stopPropagation();
+        // 1. BLOQUEO TOTAL E INMEDIATO
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
 
-        console.log("🛠️ [PRODUCCIÓN] Iniciando handleBeTogetherSubmit...");
+        console.log("🚀 [PRODUCCIÓN] Interceptado. Bloqueando navegación nativa.");
 
         const form = document.getElementById('pioneros-form');
         const btn = document.getElementById('submit-btn');
-        const alertBox = document.getElementById('custom-alert');
-        const alertMsg = document.getElementById('alert-message');
 
-        if (!form || !btn) {
-            console.error("❌ ERROR: No se encontró el formulario o el botón");
-            return;
-        }
+        if (!form || !btn) return false;
 
-        const showBeTogetherAlert = (message) => {
-            if (!alertMsg || !alertBox) return;
-            alertMsg.innerText = message;
-            alertBox.classList.remove('hidden');
-            setTimeout(() => alertBox.classList.add('hidden'), 4000);
-        };
-
-        // Estado visual de carga
+        // 2. UI LOADING
         const originalContent = btn.innerHTML;
         btn.disabled = true;
         btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
@@ -115,38 +105,37 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
         const formData = new FormData(form);
 
         try {
-            // USAMOS LA BARRA FINAL SIEMPRE EN CLOUDFLARE PARA EVITAR EL REDIRECT 308
             const apiUrl = window.location.origin + "/api/register/";
-            console.log("📡 DEBUG: Fetching a ->", apiUrl);
+            console.log("📡 Enviando datos a:", apiUrl);
 
+            // 3. FETCH CON ESPERA (AWAIT)
             const response = await fetch(apiUrl, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                // Añadimos keepalive para que la petición sobreviva si algo intenta cerrar la página
+                keepalive: true 
             });
 
-            console.log("📡 DEBUG: Status recibido ->", response.status);
+            console.log("📡 Respuesta recibida con status:", response.status);
 
             if (response.ok) {
-                console.log("✅ ÉXITO: Redirigiendo a /gracias/");
+                console.log("✅ API registrada con éxito en Sheets/Meta/Telegram");
+                // 4. SOLO REDIRIGIMOS CUANDO EL API RESPONDIÓ OK
                 window.location.href = "/gracias/";
             } else {
-                let errorMessage = "ERROR EN EL REGISTRO";
-                try {
-                    const errorData = await response.json();
-                    errorMessage = errorData.error || errorMessage;
-                } catch (e) {
-                    console.error("❌ Fallo al leer respuesta de error");
-                }
-                
-                showBeTogetherAlert(errorMessage.toUpperCase());
+                const errorData = await response.json();
+                console.error("❌ Error del API:", errorData);
+                alert("HUBO UN ERROR: " + (errorData.error || "Revisa tus datos"));
                 btn.disabled = false;
                 btn.innerHTML = originalContent;
             }
         } catch (error) {
-            console.error("❌ ERROR CRÍTICO FETCH:", error);
-            showBeTogetherAlert("ERROR DE CONEXIÓN. INTENTA DE NUEVO.");
+            console.error("❌ FALLO CRÍTICO DE CONEXIÓN:", error);
+            alert("Error de conexión. Por favor intenta de nuevo.");
             btn.disabled = false;
             btn.innerHTML = originalContent;
         }
+
+        return false; // Refuerzo final para el onsubmit
     }
 </script>
