@@ -4,9 +4,6 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
 
 <section class="py-12 md:py-24 bg-gradient-to-br from-primary to-[#2900ff] text-white relative overflow-hidden" id="registro">
     <div class="absolute inset-0 bg-black/20"></div>
-    <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-300/10 rounded-full blur-3xl"></div>
-    
     <div id="custom-alert" class="fixed top-10 left-1/2 -translate-x-1/2 z-[100] hidden">
         <div class="bg-white/20 backdrop-blur-xl border border-white/30 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-bounce">
             <span class="text-2xl">⚠️</span>
@@ -15,156 +12,111 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
     </div>
 
     <div class="max-w-4xl mx-auto px-6 relative z-10">
-        <div class="text-center mb-8 md:mb-12">
-            <span class="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-sm font-bold uppercase tracking-widest border border-white/30 mb-6">
-                🎯 Cupos limitados 
-            </span>
-            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 md:mb-6 text-white">Únete al Club de Pioneros</h2>
-            <p class="text-white/90 text-base md:text-lg max-w-2xl mx-auto">
-                Asegura tu cupo en la fase beta y obtén <strong class="text-[#FFD700]">descuentos</strong> mensuales. Beneficios exclusivos de lanzamiento.
-            </p>
-        </div>
-
-        <div class="bg-white/10 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12 border border-white/20 shadow-2xl">
-            <form id="pioneros-form" class="space-y-4 md:space-y-6" onsubmit="event.preventDefault(); return false;">
+        <div class="bg-white/10 backdrop-blur-xl rounded-[2rem] p-6 md:p-12 border border-white/20 shadow-2xl">
+            <form id="pioneros-form" class="space-y-4 md:space-y-6" onsubmit="return false;">
                 <div class="grid md:grid-cols-2 gap-4 md:gap-6">
                     <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Nombre Completo</label>
-                        <input name="nombre" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white placeholder-white/40" placeholder="Ej. Maria Garcia" type="text" required />
+                        <label class="font-bold text-xs uppercase text-white/80 px-2">Nombre Completo</label>
+                        <input name="nombre" class="w-full px-5 py-3 bg-white/20 border-2 border-white/30 rounded-2xl text-white" placeholder="Ej. Maria Garcia" type="text" required />
                     </div>
                     <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Correo Electrónico</label>
-                        <input name="email" id="email" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white placeholder-white/40" placeholder="maria@tuempresa.com" type="email" required />
+                        <label class="font-bold text-xs uppercase text-white/80 px-2">Correo Electrónico</label>
+                        <input name="email" id="email" class="w-full px-5 py-3 bg-white/20 border-2 border-white/30 rounded-2xl text-white" placeholder="maria@tuempresa.com" type="email" required />
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-4 md:gap-6">
                     <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white px-2">Teléfono (Colombia)</label>
-                        <input name="tel" id="tel" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 outline-none transition-all text-white placeholder-white/40" placeholder="3155870958" type="tel" maxlength="10" required />
+                        <label class="font-bold text-xs uppercase text-white px-2">Teléfono (Colombia)</label>
+                        <input name="tel" id="tel" class="w-full px-5 py-3 bg-white/20 border-2 border-white/30 rounded-2xl text-white" placeholder="3155870958" type="tel" maxlength="10" required />
                     </div>
                     <div class="space-y-2">
-                        <label for="categoria" class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Categoría de Producto</label>
-                        <select id="categoria" name="categoria" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white appearance-none cursor-pointer">
-                            <option value="moda" class="bg-[#120B2E]">Moda y Accesorios</option>
-                            <option value="hogar" class="bg-[#120B2E]">Hogar y Decoración</option>
-                            <option value="belleza" class="bg-[#120B2E]">Belleza y Salud</option>
-                            <option value="alimentos" class="bg-[#120B2E]">Alimentos y Bebidas</option>
-                            <option value="tecnologia" class="bg-[#120B2E]">Tecnología</option>
-                            <option value="otro" class="bg-[#120B2E]">Otro</option>
+                        <label class="font-bold text-xs uppercase text-white/80 px-2">Categoría</label>
+                        <select name="categoria" class="w-full px-5 py-3 bg-white/20 border-2 border-white/30 rounded-2xl text-white appearance-none">
+                            <option value="moda">Moda y Accesorios</option>
+                            <option value="hogar">Hogar y Decoración</option>
+                            <option value="belleza">Belleza y Salud</option>
+                            <option value="tecnologia">Tecnología</option>
                         </select>
                     </div>
                 </div>
 
                 <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
 
-                <div class="flex items-start md:items-center gap-3 py-2">
-                    <input type="checkbox" class="w-5 h-5 mt-1 md:mt-0 rounded border-white/30 bg-white/20 text-primary focus:ring-0 cursor-pointer" id="terms" required />
-                    <label for="terms" class="text-xs md:text-sm text-white/80 leading-tight cursor-pointer">Acepto los términos y condiciones y quiero recibir información sobre eventos y beneficios.</label>
-                </div>
-
-                <button id="submit-btn" class="w-full bg-[#FFD700] hover:bg-yellow-400 text-black font-black text-lg md:text-xl py-4 md:py-5 rounded-2xl shadow-xl shadow-black/30 transition-all transform hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-2" type="submit">
+                <button id="submit-btn" class="w-full bg-[#FFD700] hover:bg-yellow-400 text-black font-black text-lg py-4 rounded-2xl shadow-xl flex items-center justify-center gap-2" type="submit">
                     🚀 REGISTRARME AHORA
-                    <ArrowRight class="w-5 h-5 md:w-6 md:h-6" />
+                    <ArrowRight class="w-5 h-5" />
                 </button>
-                
-                <p class="text-center text-[10px] md:text-sm text-white/60 mt-4">
-                    ⚡ Los primeros 10 en registrarse reciben asesoría personalizada GRATIS
-                </p>
             </form>
-        </div>
-
-        <div class="mt-8 md:mt-12 flex flex-wrap justify-center gap-4 md:gap-8 items-center opacity-70 text-xs md:text-sm">
-            <span class="flex items-center gap-2"><Lock class="w-4 h-4" /> Datos seguros</span>
-            <span class="flex items-center gap-2"><ShieldCheck class="w-4 h-4" /> Pago protegido</span>
-            <span class="flex items-center gap-2"><Headset class="w-4 h-4" /> Soporte incluido</span>
         </div>
     </div>
 </section>
 
 <script>
-    // Usamos una función autoejecutable para que se registre de inmediato
     (function() {
         const initForm = () => {
-            console.log("🚀 SCRIPT INICIALIZADO - BeTogether Pro");
+            console.log("🛠️ DEBUG: Script BeTogether inicializado en " + window.location.href);
 
             const form = document.getElementById('pioneros-form') as HTMLFormElement | null;
             const btn = document.getElementById('submit-btn') as HTMLButtonElement | null;
             const alertBox = document.getElementById('custom-alert') as HTMLDivElement | null;
             const alertMsg = document.getElementById('alert-message') as HTMLParagraphElement | null;
 
-            if (!form || !btn) return;
-
-            const showBeTogetherAlert = (message: string) => {
-                if (!alertMsg || !alertBox) return;
-                alertMsg.innerText = message;
-                alertBox.classList.remove('hidden');
-                setTimeout(() => alertBox.classList.add('hidden'), 4000);
-            };
+            if (!form || !btn) {
+                console.error("❌ DEBUG: No se encontró el formulario o el botón en el DOM");
+                return;
+            }
 
             form.addEventListener('submit', async (e: Event) => {
-                // Triple bloqueo de redirección accidental
                 e.preventDefault();
                 e.stopPropagation();
                 
-                console.log("🚀 INTERCEPTANDO ENVÍO - Procesando en Edge...");
+                console.log("🚀 DEBUG: Evento SUBMIT capturado correctamente");
                 
                 const formData = new FormData(form);
-                const nombre = formData.get("nombre")?.toString() || "";
-                const email = formData.get("email")?.toString() || "";
-                const tel = formData.get("tel")?.toString().replace(/\s+/g, '') || "";
+                const nombre = (formData.get("nombre") || "").toString();
+                const email = (formData.get("email") || "").toString();
 
-                // Validaciones Frontend
-                if (nombre.trim().length < 2) {
-                    showBeTogetherAlert("Por favor, ingresa tu nombre completo.");
-                    return;
-                }
+                console.log("📝 DEBUG: Datos listos para enviar:", { nombre, email });
 
-                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                if (!emailRegex.test(email)) {
-                    showBeTogetherAlert("Correo electrónico no válido.");
-                    return;
-                }
-
-                const telRegex = /^3[0-9]{9}$/;
-                if (!telRegex.test(tel)) {
-                    showBeTogetherAlert("Usa un celular de Colombia válido.");
-                    return;
-                }
-
-                // UI Loading
                 btn.disabled = true;
                 const originalContent = btn.innerHTML;
-                btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
+                btn.innerHTML = "<span>⏳ PROCESANDO...</span>";
 
                 try {
-                    // MEJORA: Usamos la ruta con / al final para evitar el error 308 de Cloudflare
-                    const response = await fetch(`${window.location.origin}/api/register/`, {
+                    const apiUrl = `${window.location.origin}/api/register/`;
+                    console.log("📡 DEBUG: Intentando Fetch a URL:", apiUrl);
+
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
                         body: formData
                     });
 
-                    console.log("📡 STATUS API:", response.status);
+                    console.log("📡 DEBUG: Status de respuesta del servidor:", response.status);
 
                     if (response.ok) {
-                        console.log("✅ ÉXITO - Redirigiendo a Gracias");
-                        window.location.href = "/gracias";
+                        const data = await response.json();
+                        console.log("✅ DEBUG: API respondió éxito:", data);
+                        window.location.href = "/gracias/";
                     } else {
-                        const errorData = await response.json();
-                        showBeTogetherAlert(errorData.error?.toUpperCase() || "ERROR EN EL REGISTRO");
+                        const errorText = await response.text();
+                        console.error("❌ DEBUG: Error del servidor:", response.status, errorText);
+                        
+                        if (alertMsg && alertBox) {
+                            alertMsg.innerText = "ERROR EN EL SERVIDOR (" + response.status + ")";
+                            alertBox.classList.remove('hidden');
+                        }
                         btn.disabled = false;
                         btn.innerHTML = originalContent;
                     }
                 } catch (error) {
-                    console.error("❌ ERROR CRÍTICO FETCH:", error);
-                    showBeTogetherAlert("ERROR DE CONEXIÓN. INTENTA DE NUEVO.");
+                    console.error("❌ DEBUG: Fallo crítico en la conexión:", error);
                     btn.disabled = false;
                     btn.innerHTML = originalContent;
                 }
             });
         };
 
-        // Ejecutar en load y en transiciones de Astro (si usas ViewTransitions)
         window.addEventListener('load', initForm);
         document.addEventListener('astro:page-load', initForm);
     })();
