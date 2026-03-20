@@ -147,8 +147,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       );
     }
 
-    // 🚀 NO BLOQUEAR RESPUESTA
-    Promise.allSettled(tasks);
+    // 🚀 MEJORA: AWAIT PARA ASEGURAR EJECUCIÓN EN CLOUDFLARE EDGE
+    await Promise.allSettled(tasks);
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,

@@ -28,7 +28,7 @@ export default defineConfig({
 
   // 🔐 Seguridad
   security: {
-    checkOrigin: true,
+    checkOrigin: false,
   },
 
   // ⚡ Optimización de build

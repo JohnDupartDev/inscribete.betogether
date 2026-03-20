@@ -82,14 +82,18 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
     </div>
 </section>
 
-<script is:inline>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('pioneros-form');
-        const btn = document.getElementById('submit-btn');
-        const alertBox = document.getElementById('custom-alert');
-        const alertMsg = document.getElementById('alert-message');
+<script>
+    // MEJORA PRO: Usamos 'load' para asegurar que todo el DOM y recursos estén listos en producción
+    window.addEventListener('load', () => {
+        console.log("🚀 SCRIPT FUNCIONANDO - BeTogether Ready");
 
-        const showBeTogetherAlert = (message) => {
+        // Casting de tipos para evitar advertencias de TypeScript
+        const form = document.getElementById('pioneros-form') as HTMLFormElement | null;
+        const btn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+        const alertBox = document.getElementById('custom-alert') as HTMLDivElement | null;
+        const alertMsg = document.getElementById('alert-message') as HTMLParagraphElement | null;
+
+        const showBeTogetherAlert = (message: string) => {
             if (!alertMsg || !alertBox) return;
             alertMsg.innerText = message;
             alertBox.classList.remove('hidden');
@@ -98,9 +102,12 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
             }, 4000);
         };
 
-        form?.addEventListener('submit', async (e) => {
+        form?.addEventListener('submit', async (e: SubmitEvent) => {
             e.preventDefault();
+            console.log("🚀 ENVIANDO FORM - Iniciando validaciones y Fetch");
             
+            if (!form || !btn) return;
+
             const formData = new FormData(form);
             const nombre = formData.get("nombre")?.toString() || "";
             const email = formData.get("email")?.toString() || "";
@@ -123,6 +130,7 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
                 return;
             }
 
+            // Estado de carga UI - Ahora TypeScript sabe que es un HTMLButtonElement
             btn.disabled = true;
             const originalContent = btn.innerHTML;
             btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
@@ -133,16 +141,26 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
                     body: formData
                 });
 
+                console.log("📡 Respuesta del servidor recibida:", response.status);
+
                 if (response.ok) {
+                    console.log("✅ Registro exitoso. Redirigiendo...");
                     window.location.href = "/gracias";
                 } else {
-                    const errorData = await response.json();
-                    showBeTogetherAlert(errorData.error?.toUpperCase() || "ERROR EN EL REGISTRO");
+                    let errorMessage = "ERROR EN EL REGISTRO";
+                    try {
+                        const errorData = await response.json();
+                        errorMessage = errorData.error || errorMessage;
+                    } catch (parseError) {
+                        console.error("Error al parsear JSON de error:", parseError);
+                    }
+                    
+                    showBeTogetherAlert(errorMessage.toUpperCase());
                     btn.disabled = false;
                     btn.innerHTML = originalContent;
                 }
             } catch (error) {
-                console.error("Error en Fetch:", error);
+                console.error("❌ Error crítico en Fetch:", error);
                 showBeTogetherAlert("ERROR DE CONEXIÓN. INTENTA DE NUEVO.");
                 btn.disabled = false;
                 btn.innerHTML = originalContent;
