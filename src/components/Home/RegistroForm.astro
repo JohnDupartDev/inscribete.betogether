@@ -83,7 +83,6 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
 </section>
 
 <script is:inline>
-    // Usamos el evento de carga de Astro para asegurar que el DOM esté listo
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.getElementById('pioneros-form');
         const btn = document.getElementById('submit-btn');
@@ -101,7 +100,6 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
 
         form?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            console.log("🚀 Intento de registro detectado..."); // Para ver en consola
             
             const formData = new FormData(form);
             const nombre = formData.get("nombre")?.toString() || "";
@@ -130,77 +128,6 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
             btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
 
             try {
-                // Forzamos la URL absoluta para Cloudflare
-                const response = await fetch(`${window.location.origin}/api/register`, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    window.location.href = "/gracias";
-                } else {
-                    const errorData = await response.json();
-                    showBeTogetherAlert(errorData.error?.toUpperCase() || "ERROR EN EL REGISTRO");
-                    btn.disabled = false;
-                    btn.innerHTML = originalContent;
-                }
-            } catch (error) {
-                console.error("Error en Fetch:", error);
-                showBeTogetherAlert("ERROR DE CONEXIÓN. INTENTA DE NUEVO.");
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-            }
-        });
-    });
-</script><script is:inline>
-    // Usamos el evento de carga de Astro para asegurar que el DOM esté listo
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('pioneros-form');
-        const btn = document.getElementById('submit-btn');
-        const alertBox = document.getElementById('custom-alert');
-        const alertMsg = document.getElementById('alert-message');
-
-        const showBeTogetherAlert = (message) => {
-            if (!alertMsg || !alertBox) return;
-            alertMsg.innerText = message;
-            alertBox.classList.remove('hidden');
-            setTimeout(() => {
-                alertBox.classList.add('hidden');
-            }, 4000);
-        };
-
-        form?.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            console.log("🚀 Intento de registro detectado..."); // Para ver en consola
-            
-            const formData = new FormData(form);
-            const nombre = formData.get("nombre")?.toString() || "";
-            const email = formData.get("email")?.toString() || "";
-            const tel = formData.get("tel")?.toString().replace(/\s+/g, '') || "";
-
-            if (nombre.trim().length < 2) {
-                showBeTogetherAlert("Por favor, ingresa tu nombre completo.");
-                return;
-            }
-
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (!emailRegex.test(email)) {
-                showBeTogetherAlert("Correo electrónico no válido.");
-                return;
-            }
-
-            const telRegex = /^3[0-9]{9}$/;
-            if (!telRegex.test(tel)) {
-                showBeTogetherAlert("Usa un celular de Colombia (10 dígitos iniciado en 3).");
-                return;
-            }
-
-            btn.disabled = true;
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
-
-            try {
-                // Forzamos la URL absoluta para Cloudflare
                 const response = await fetch(`${window.location.origin}/api/register`, {
                     method: 'POST',
                     body: formData
