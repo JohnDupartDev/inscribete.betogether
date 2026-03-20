@@ -40,10 +40,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       return new Response(JSON.stringify({ error: "Formato no soportado" }), { status: 400 });
     }
 
-    // ✅ ANTIBOT
-    if (honeypot) {
-      return new Response(JSON.stringify({ error: "Bot detectado" }), { status: 403 });
-    }
+    //
+   // if (honeypot) {
+    //  return new Response(JSON.stringify({ error: "Bot detectado" }), { status: 403 });
+   // }
 
     // ✅ VALIDACIÓN
     if (!email.includes("@") || nombre.length < 2) {
