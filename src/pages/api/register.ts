@@ -1,63 +1,105 @@
 export const prerender = false;
-export const runtime = 'edge'; // VITAL para Cloudflare
+export const runtime = 'edge';
 
 import type { APIRoute } from "astro";
 
-// --- FUNCIÓN DE HASHING COMPATIBLE CON CLOUDFLARE EDGE ---
-// Sustituye a node:crypto para evitar errores de compilación
+// --- UTILIDADES ---
+const escapeMarkdown = (text: string) =>
+  text.replace(/[_*[\]()~`>#+=|{}.!-]/g, "\\$&");
+
 async function hashData(message: string) {
   const msgUint8 = new TextEncoder().encode(message.trim().toLowerCase());
   const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
-    // 1. Validación de Cabeceras
     const contentType = request.headers.get("content-type") || "";
-    if (!contentType.includes("multipart/form-data")) {
-       return new Response(JSON.stringify({ error: "Formato no permitido" }), { status: 403 });
+
+    // ✅ ACEPTAR TODOS LOS FORMATOS
+    let nombre = "", email = "", tel = "", categoria = "", honeypot = "";
+
+    if (contentType.includes("multipart/form-data")) {
+      const formData = await request.formData();
+      nombre = formData.get("nombre")?.toString() || "";
+      email = formData.get("email")?.toString() || "";
+      tel = formData.get("tel")?.toString() || "";
+      categoria = formData.get("categoria")?.toString() || "";
+      honeypot = formData.get("company")?.toString() || "";
+    } else if (contentType.includes("application/json")) {
+      const body = await request.json();
+      nombre = body.nombre || "";
+      email = body.email || "";
+      tel = body.tel || "";
+      categoria = body.categoria || "";
+      honeypot = body.company || "";
+    } else {
+      return new Response(JSON.stringify({ error: "Formato no soportado" }), { status: 400 });
     }
 
-    // 2. Extracción de Datos
-    const formData = await request.formData();
-    const nombre = formData.get("nombre")?.toString() || "";
-    const email = formData.get("email")?.toString() || "";
-    const tel = formData.get("tel")?.toString() || "";
-    const categoria = formData.get("categoria")?.toString() || "";
-    const userAgent = request.headers.get("user-agent") || "";
-    const ip = clientAddress || "127.0.0.1";
+    // ✅ ANTIBOT
+    if (honeypot) {
+      return new Response(JSON.stringify({ error: "Bot detectado" }), { status: 403 });
+    }
 
-    // 3. Carga de Variables de Entorno (Importante: Cloudflare las lee así)
+    // ✅ VALIDACIÓN
+    if (!email.includes("@") || nombre.length < 2) {
+      return new Response(JSON.stringify({ error: "Datos inválidos" }), { status: 400 });
+    }
+
+    // CONTEXTO
+    const ip =
+      request.headers.get("cf-connecting-ip") ||
+      request.headers.get("x-forwarded-for") ||
+      clientAddress ||
+      "0.0.0.0";
+
+    const userAgent = request.headers.get("user-agent") || "unknown";
+
+    // ✅ ENV VARIABLES (CRÍTICO)
     const GOOGLE_WEBHOOK = import.meta.env.GOOGLE_WEBHOOK_URL;
     const PIXEL_ID = import.meta.env.META_PIXEL_ID;
     const ACCESS_TOKEN = import.meta.env.META_ACCESS_TOKEN;
     const TELEGRAM_TOKEN = import.meta.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = import.meta.env.TELEGRAM_CHAT_ID;
 
-    // Hashear datos para Meta CAPI (ahora es async)
+    // 🔥 DEBUG (ver en Cloudflare logs)
+    console.log("ENV CHECK:", {
+      GOOGLE_WEBHOOK,
+      PIXEL_ID,
+      TELEGRAM_TOKEN
+    });
+
     const emailHash = await hashData(email);
     const telHash = await hashData(tel);
 
-    // --- PROCESO 1: GOOGLE SHEETS ---
+    const tasks: Promise<any>[] = [];
+
+    // =========================
+    // 📊 GOOGLE SHEETS
+    // =========================
     if (GOOGLE_WEBHOOK) {
-      try {
-        await fetch(GOOGLE_WEBHOOK, {
+      tasks.push(
+        fetch(GOOGLE_WEBHOOK, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nombre, email, tel, categoria })
-        });
-        console.log("✅ Google Sheets: Datos sincronizados.");
-      } catch (e) {
-        console.error("❌ Error en Sheets:", e);
-      }
+          body: JSON.stringify({ nombre, email, tel, categoria, fecha: new Date().toISOString() })
+        })
+          .then(res => res.text())
+          .then(txt => console.log("Sheets OK:", txt))
+          .catch(err => console.error("Sheets Error:", err))
+      );
     }
 
-    // --- PROCESO 2: META CAPI ---
-    if (ACCESS_TOKEN && PIXEL_ID) {
-      try {
-        const metaRes = await fetch(`https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
+    // =========================
+    // 📈 META CAPI
+    // =========================
+    if (PIXEL_ID && ACCESS_TOKEN) {
+      tasks.push(
+        fetch(`https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -70,55 +112,51 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
                 ph: [telHash],
                 client_ip_address: ip,
                 client_user_agent: userAgent,
-              },
-              custom_data: {
-                content_name: "Registro Club de Pioneros - BeTogether",
-                content_category: categoria
               }
             }],
-            test_event_code: "TEST6866" 
+            test_event_code: "TEST6866"
           })
-        });
-
-        const metaData = await metaRes.json();
-        console.log("📊 Respuesta Meta CAPI:", JSON.stringify(metaData));
-      } catch (e) {
-        console.error("❌ Error en Meta CAPI:", e);
-      }
+        })
+          .then(res => res.json())
+          .then(data => console.log("Meta OK:", data))
+          .catch(err => console.error("Meta Error:", err))
+      );
     }
 
-    // --- PROCESO 3: NOTIFICACIÓN TELEGRAM ---
+    // =========================
+    // 🤖 TELEGRAM
+    // =========================
     if (TELEGRAM_TOKEN && TELEGRAM_CHAT_ID) {
-      try {
-        const text = `🚀 *NUEVO LEAD EN BETOGETHER*\n\n` +
-                     `👤 *Nombre:* ${nombre}\n` +
-                     `📧 *Email:* ${email}\n` +
-                     `📱 *WhatsApp:* ${tel}\n` +
-                     `🏷️ *Categoría:* ${categoria}\n\n` +
-                     `🌐 _IP: ${ip}_`;
+      const text =
+        `🚀 *Nuevo Lead*\n\n` +
+        `👤 ${escapeMarkdown(nombre)}\n` +
+        `📧 ${escapeMarkdown(email)}\n` +
+        `📱 ${escapeMarkdown(tel)}\n` +
+        `🏷️ ${escapeMarkdown(categoria)}`;
 
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      tasks.push(
+        fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: TELEGRAM_CHAT_ID,
-            text: text,
-            parse_mode: "Markdown"
+            text,
+            parse_mode: "MarkdownV2"
           })
-        });
-        console.log("📤 Notificación de Telegram enviada.");
-      } catch (e) {
-        console.error("❌ Error en Telegram:", e);
-      }
+        }).catch(err => console.error("Telegram Error:", err))
+      );
     }
 
-    return new Response(JSON.stringify({ message: "Registro procesado con éxito" }), { 
+    // 🚀 NO BLOQUEAR RESPUESTA
+    Promise.allSettled(tasks);
+
+    return new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });
 
   } catch (error: any) {
-    console.error("❌ Error crítico:", error.message);
+    console.error("ERROR API:", error.message);
     return new Response(JSON.stringify({ error: "Error interno" }), { status: 500 });
   }
 };
