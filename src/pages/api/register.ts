@@ -15,8 +15,18 @@ async function hashData(message: string) {
     .join("");
 }
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
+export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
   try {
+    // ☁️ ACCESO A VARIABLES EN CLOUDFLARE EDGE
+    // Astro inyecta las variables de entorno en locals.runtime.env en producción
+    const env = (locals as any).runtime?.env || {};
+
+    const GOOGLE_WEBHOOK = env.GOOGLE_WEBHOOK_URL || import.meta.env.GOOGLE_WEBHOOK_URL;
+    const PIXEL_ID = env.META_PIXEL_ID || import.meta.env.META_PIXEL_ID;
+    const ACCESS_TOKEN = env.META_ACCESS_TOKEN || import.meta.env.META_ACCESS_TOKEN;
+    const TELEGRAM_TOKEN = env.TELEGRAM_BOT_TOKEN || import.meta.env.TELEGRAM_BOT_TOKEN;
+    const TELEGRAM_CHAT_ID = env.TELEGRAM_CHAT_ID || import.meta.env.TELEGRAM_CHAT_ID;
+
     const contentType = request.headers.get("content-type") || "";
 
     // ✅ ACEPTAR TODOS LOS FORMATOS
@@ -40,17 +50,19 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       return new Response(JSON.stringify({ error: "Formato no soportado" }), { status: 400 });
     }
 
-    //
-   // if (honeypot) {
-    //  return new Response(JSON.stringify({ error: "Bot detectado" }), { status: 403 });
-   // }
+    // ✅ ANTIBOT (Opcional - Descomentar si es necesario)
+    // if (honeypot) {
+    //   return new Response(JSON.stringify({ error: "Bot detectado" }), { status: 403 });
+    // }
 
     // ✅ VALIDACIÓN
     if (!email.includes("@") || nombre.length < 2) {
       return new Response(JSON.stringify({ error: "Datos inválidos" }), { status: 400 });
     }
-console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
-    // CONTEXTO
+
+    console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
+
+    // CONTEXTO PARA META
     const ip =
       request.headers.get("cf-connecting-ip") ||
       request.headers.get("x-forwarded-for") ||
@@ -59,18 +71,11 @@ console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
 
     const userAgent = request.headers.get("user-agent") || "unknown";
 
-    // ✅ ENV VARIABLES (CRÍTICO)
-    const GOOGLE_WEBHOOK = import.meta.env.GOOGLE_WEBHOOK_URL;
-    const PIXEL_ID = import.meta.env.META_PIXEL_ID;
-    const ACCESS_TOKEN = import.meta.env.META_ACCESS_TOKEN;
-    const TELEGRAM_TOKEN = import.meta.env.TELEGRAM_BOT_TOKEN;
-    const TELEGRAM_CHAT_ID = import.meta.env.TELEGRAM_CHAT_ID;
-
-    // 🔥 DEBUG (ver en Cloudflare logs)
-    console.log("ENV CHECK:", {
-      GOOGLE_WEBHOOK,
-      PIXEL_ID,
-      TELEGRAM_TOKEN
+    // 🔥 DEBUG DE VARIABLES (Crucial para ver en Cloudflare Logs)
+    console.log("🔍 ENV CHECK (Production):", {
+      hasSheets: !!GOOGLE_WEBHOOK,
+      hasPixel: !!PIXEL_ID,
+      hasTelegram: !!TELEGRAM_TOKEN
     });
 
     const emailHash = await hashData(email);
@@ -89,8 +94,8 @@ console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
           body: JSON.stringify({ nombre, email, tel, categoria, fecha: new Date().toISOString() })
         })
           .then(res => res.text())
-          .then(txt => console.log("Sheets OK:", txt))
-          .catch(err => console.error("Sheets Error:", err))
+          .then(txt => console.log("✅ Sheets OK:", txt))
+          .catch(err => console.error("❌ Sheets Error:", err))
       );
     }
 
@@ -118,8 +123,8 @@ console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
           })
         })
           .then(res => res.json())
-          .then(data => console.log("Meta OK:", data))
-          .catch(err => console.error("Meta Error:", err))
+          .then(data => console.log("✅ Meta OK:", data))
+          .catch(err => console.error("❌ Meta Error:", err))
       );
     }
 
@@ -143,11 +148,13 @@ console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
             text,
             parse_mode: "MarkdownV2"
           })
-        }).catch(err => console.error("Telegram Error:", err))
+        })
+          .then(() => console.log("✅ Telegram OK"))
+          .catch(err => console.error("❌ Telegram Error:", err))
       );
     }
 
-    // 🚀 MEJORA: AWAIT PARA ASEGURAR EJECUCIÓN EN CLOUDFLARE EDGE
+    // 🚀 CRÍTICO: Esperamos a que todas las promesas se resuelvan antes de cerrar la conexión Edge
     await Promise.allSettled(tasks);
 
     return new Response(JSON.stringify({ ok: true }), {
@@ -156,7 +163,7 @@ console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
     });
 
   } catch (error: any) {
-    console.error("ERROR API:", error.message);
-    return new Response(JSON.stringify({ error: "Error interno" }), { status: 500 });
+    console.error("❌ ERROR CRÍTICO API:", error.message);
+    return new Response(JSON.stringify({ error: "Error interno del servidor" }), { status: 500 });
   }
 };
