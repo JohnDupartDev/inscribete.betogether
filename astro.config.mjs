@@ -4,25 +4,29 @@ import tailwind from "@astrojs/tailwind";
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  // 🔥 Habilita SSR (necesario para APIs como tu /api/register)
+  // 🔥 Habilita SSR (OBLIGATORIO para que /api/register funcione en Cloudflare)
   output: "server",
 
   // ✅ Adapter oficial para Cloudflare Pages / Workers
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    // 🔥 IMPORTANTE: habilita edge runtime correctamente
+    platformProxy: {
+      enabled: true
+    }
+  }),
 
   // ✅ Integraciones
   integrations: [
     tailwind(),
   ],
 
-  // ⚠️ IMPORTANTE: server config solo aplica en dev local
-  // (Cloudflare lo ignora, pero lo dejamos limpio)
+  // ⚠️ Solo para desarrollo local
   server: {
     host: true,
     port: 4321,
   },
 
-  // 🔐 Seguridad (válido en SSR)
+  // 🔐 Seguridad
   security: {
     checkOrigin: true,
   },
@@ -32,8 +36,11 @@ export default defineConfig({
     inlineStylesheets: "always",
   },
 
-  // 🔥 RECOMENDADO: evita problemas de compatibilidad
+  // 🔥 FIX para problemas con import.meta.env y edge runtime
   vite: {
+    define: {
+      "process.env": {}
+    },
     build: {
       target: "esnext",
     },

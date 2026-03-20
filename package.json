@@ -10,7 +10,7 @@
     "deploy": "astro build && wrangler pages deploy ./dist"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "11.2.0",
+    "@astrojs/cloudflare": "^11.2.0",
     "@astrojs/tailwind": "5.1.5",
     "astro": "4.16.18",
     "lucide-astro": "^0.556.0",
