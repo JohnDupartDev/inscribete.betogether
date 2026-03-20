@@ -1,11 +1,16 @@
-export const prerender = false; 
+export const prerender = false;
+export const runtime = 'edge'; // VITAL para Cloudflare
 
 import type { APIRoute } from "astro";
-import { createHash } from "node:crypto";
 
-const hashData = (data: string) => {
-  return createHash("sha256").update(data.trim().toLowerCase()).digest("hex");
-};
+// --- FUNCIÓN DE HASHING COMPATIBLE CON CLOUDFLARE EDGE ---
+// Sustituye a node:crypto para evitar errores de compilación
+async function hashData(message: string) {
+  const msgUint8 = new TextEncoder().encode(message.trim().toLowerCase());
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
@@ -24,13 +29,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     const userAgent = request.headers.get("user-agent") || "";
     const ip = clientAddress || "127.0.0.1";
 
-    // 3. Carga de Variables de Entorno
+    // 3. Carga de Variables de Entorno (Importante: Cloudflare las lee así)
     const GOOGLE_WEBHOOK = import.meta.env.GOOGLE_WEBHOOK_URL;
     const PIXEL_ID = import.meta.env.META_PIXEL_ID;
     const ACCESS_TOKEN = import.meta.env.META_ACCESS_TOKEN;
-    // Variables para Telegram
     const TELEGRAM_TOKEN = import.meta.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = import.meta.env.TELEGRAM_CHAT_ID;
+
+    // Hashear datos para Meta CAPI (ahora es async)
+    const emailHash = await hashData(email);
+    const telHash = await hashData(tel);
 
     // --- PROCESO 1: GOOGLE SHEETS ---
     if (GOOGLE_WEBHOOK) {
@@ -58,8 +66,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
               event_time: Math.floor(Date.now() / 1000),
               action_source: "website",
               user_data: {
-                em: [hashData(email)],
-                ph: [hashData(tel)],
+                em: [emailHash],
+                ph: [telHash],
                 client_ip_address: ip,
                 client_user_agent: userAgent,
               },
@@ -68,7 +76,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
                 content_category: categoria
               }
             }],
-            // Código de prueba para verificar en el panel de Meta
             test_event_code: "TEST6866" 
           })
         });

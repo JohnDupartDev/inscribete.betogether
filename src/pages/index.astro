@@ -1,4 +1,7 @@
 ---
+// 1. VITAL: Activa el prerenderizado para que la landing sea ultra rápida
+export const prerender = true;
+
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Home/Hero.astro';
 import Stats from '../components/Home/Stats.astro';
@@ -11,16 +14,16 @@ import FAQ from '../components/Home/FAQ.astro';
 import RegistroForm from '../components/Home/RegistroForm.astro';
 ---
 
-<Layout title="BeTogether - Inscríbete">
-	<main class="pt-16 lg:pt-20 min-h-screen">
-		<Hero />
-		<Stats />
-		<Fase1 />
-		<Ecosistema /> 
-       <AfiliadoEstrella /> 
-       <ComoEmpezar /> 
-       <CtaGratis /> 
-       <FAQ />
-       <RegistroForm /> 
-		</main>
+<Layout title="BeTogether.com.co - Se un Pionero betogether en Colombia">
+    <main class="pt-16 lg:pt-20 min-h-screen">
+        <Hero />
+        <Stats />
+        <Fase1 />
+        <Ecosistema /> 
+        <AfiliadoEstrella /> 
+        <ComoEmpezar /> 
+        <CtaGratis /> 
+        <FAQ />
+        <RegistroForm /> 
+    </main>
 </Layout>
