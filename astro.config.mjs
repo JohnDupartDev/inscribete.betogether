@@ -4,27 +4,38 @@ import tailwind from "@astrojs/tailwind";
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  // 1. ACTIVAR SSR: Permite procesar APIs y formularios en el servidor
-  output: 'server', 
-  
-  // 2. ADAPTADOR CLOUDFLARE (Versión Moderna)
-  adapter: cloudflare(), // En la v13 ya no se necesita el objeto 'mode'
+  // 🔥 Habilita SSR (necesario para APIs como tu /api/register)
+  output: "server",
 
-  integrations: [tailwind()],
+  // ✅ Adapter oficial para Cloudflare Pages / Workers
+  adapter: cloudflare(),
 
-  // 3. SEGURIDAD DE RED Y CABECERAS
+  // ✅ Integraciones
+  integrations: [
+    tailwind(),
+  ],
+
+  // ⚠️ IMPORTANTE: server config solo aplica en dev local
+  // (Cloudflare lo ignora, pero lo dejamos limpio)
   server: {
+    host: true,
     port: 4321,
-    host: true, // Permite ver la web en otros dispositivos de tu red local
   },
 
-  // 4. PROTECCIÓN DE ORIGEN (Solo acepta peticiones de tu propio dominio)
+  // 🔐 Seguridad (válido en SSR)
   security: {
-    checkOrigin: true, 
+    checkOrigin: true,
   },
 
-  // 5. OPTIMIZACIÓN DE ASSETS
+  // ⚡ Optimización de build
   build: {
-    inlineStylesheets: 'always',
-  }
+    inlineStylesheets: "always",
+  },
+
+  // 🔥 RECOMENDADO: evita problemas de compatibilidad
+  vite: {
+    build: {
+      target: "esnext",
+    },
+  },
 });

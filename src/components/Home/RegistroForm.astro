@@ -56,6 +56,8 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
                     </div>
                 </div>
 
+                <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
+
                 <div class="flex items-start md:items-center gap-3 py-2">
                     <input type="checkbox" class="w-5 h-5 mt-1 md:mt-0 rounded border-white/30 bg-white/20 text-primary focus:ring-0 cursor-pointer" id="terms" required />
                     <label for="terms" class="text-xs md:text-sm text-white/80 leading-tight cursor-pointer">Acepto los términos y condiciones y quiero recibir información sobre eventos y beneficios.</label>
@@ -86,7 +88,6 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
     const alertBox = document.getElementById('custom-alert') as HTMLDivElement;
     const alertMsg = document.getElementById('alert-message') as HTMLParagraphElement;
 
-    // Función para mostrar alerta con estilo BeTogether
     const showBeTogetherAlert = (message: string) => {
         alertMsg.innerText = message;
         alertBox.classList.remove('hidden');
@@ -99,8 +100,15 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
         e.preventDefault();
         
         const formData = new FormData(form);
+        const nombre = formData.get("nombre")?.toString() || "";
         const email = formData.get("email")?.toString() || "";
         const tel = formData.get("tel")?.toString().replace(/\s+/g, '') || "";
+
+        // 🛡️ MEJORA: VALIDACIÓN DE NOMBRE
+        if (nombre.trim().length < 2) {
+            showBeTogetherAlert("Por favor, ingresa tu nombre completo.");
+            return;
+        }
 
         // 🛡️ VALIDACIÓN DE CORREO
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -116,10 +124,13 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
             return;
         }
 
-        // Estado de carga
+        // Estado de carga con Spinner
         btn.disabled = true;
         const originalContent = btn.innerHTML;
-        btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
+        btn.innerHTML = `<span class="flex items-center gap-2">
+            <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            PROCESANDO...
+        </span>`;
 
         try {
             const response = await fetch('/api/register', {
@@ -128,6 +139,10 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
             });
 
             if (response.ok) {
+                // Tracking de cliente opcional
+                // @ts-ignore
+                if (typeof fbq !== 'undefined') fbq('track', 'CompleteRegistration');
+                
                 window.location.href = "/gracias";
             } else {
                 let errorMessage = "NO SE PUDO COMPLETAR EL REGISTRO.";
