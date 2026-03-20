@@ -26,7 +26,7 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
         </div>
 
         <div class="bg-white/10 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12 border border-white/20 shadow-2xl">
-            <form id="pioneros-form" class="space-y-4 md:space-y-6">
+            <form id="pioneros-form" class="space-y-4 md:space-y-6" onsubmit="event.preventDefault(); return false;">
                 <div class="grid md:grid-cols-2 gap-4 md:gap-6">
                     <div class="space-y-2">
                         <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Nombre Completo</label>
@@ -83,88 +83,89 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
 </section>
 
 <script>
-    // MEJORA PRO: Usamos 'load' para asegurar que todo el DOM y recursos estén listos en producción
-    window.addEventListener('load', () => {
-        console.log("🚀 SCRIPT FUNCIONANDO - BeTogether Ready");
+    // Usamos una función autoejecutable para que se registre de inmediato
+    (function() {
+        const initForm = () => {
+            console.log("🚀 SCRIPT INICIALIZADO - BeTogether Pro");
 
-        // Casting de tipos para evitar advertencias de TypeScript
-        const form = document.getElementById('pioneros-form') as HTMLFormElement | null;
-        const btn = document.getElementById('submit-btn') as HTMLButtonElement | null;
-        const alertBox = document.getElementById('custom-alert') as HTMLDivElement | null;
-        const alertMsg = document.getElementById('alert-message') as HTMLParagraphElement | null;
+            const form = document.getElementById('pioneros-form') as HTMLFormElement | null;
+            const btn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+            const alertBox = document.getElementById('custom-alert') as HTMLDivElement | null;
+            const alertMsg = document.getElementById('alert-message') as HTMLParagraphElement | null;
 
-        const showBeTogetherAlert = (message: string) => {
-            if (!alertMsg || !alertBox) return;
-            alertMsg.innerText = message;
-            alertBox.classList.remove('hidden');
-            setTimeout(() => {
-                alertBox.classList.add('hidden');
-            }, 4000);
-        };
-
-        form?.addEventListener('submit', async (e: SubmitEvent) => {
-            e.preventDefault();
-            console.log("🚀 ENVIANDO FORM - Iniciando validaciones y Fetch");
-            
             if (!form || !btn) return;
 
-            const formData = new FormData(form);
-            const nombre = formData.get("nombre")?.toString() || "";
-            const email = formData.get("email")?.toString() || "";
-            const tel = formData.get("tel")?.toString().replace(/\s+/g, '') || "";
+            const showBeTogetherAlert = (message: string) => {
+                if (!alertMsg || !alertBox) return;
+                alertMsg.innerText = message;
+                alertBox.classList.remove('hidden');
+                setTimeout(() => alertBox.classList.add('hidden'), 4000);
+            };
 
-            if (nombre.trim().length < 2) {
-                showBeTogetherAlert("Por favor, ingresa tu nombre completo.");
-                return;
-            }
+            form.addEventListener('submit', async (e: Event) => {
+                // Triple bloqueo de redirección accidental
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log("🚀 INTERCEPTANDO ENVÍO - Procesando en Edge...");
+                
+                const formData = new FormData(form);
+                const nombre = formData.get("nombre")?.toString() || "";
+                const email = formData.get("email")?.toString() || "";
+                const tel = formData.get("tel")?.toString().replace(/\s+/g, '') || "";
 
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (!emailRegex.test(email)) {
-                showBeTogetherAlert("Correo electrónico no válido.");
-                return;
-            }
+                // Validaciones Frontend
+                if (nombre.trim().length < 2) {
+                    showBeTogetherAlert("Por favor, ingresa tu nombre completo.");
+                    return;
+                }
 
-            const telRegex = /^3[0-9]{9}$/;
-            if (!telRegex.test(tel)) {
-                showBeTogetherAlert("Usa un celular de Colombia (10 dígitos iniciado en 3).");
-                return;
-            }
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    showBeTogetherAlert("Correo electrónico no válido.");
+                    return;
+                }
 
-            // Estado de carga UI - Ahora TypeScript sabe que es un HTMLButtonElement
-            btn.disabled = true;
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
+                const telRegex = /^3[0-9]{9}$/;
+                if (!telRegex.test(tel)) {
+                    showBeTogetherAlert("Usa un celular de Colombia válido.");
+                    return;
+                }
 
-            try {
-                const response = await fetch(`${window.location.origin}/api/register`, {
-                    method: 'POST',
-                    body: formData
-                });
+                // UI Loading
+                btn.disabled = true;
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
 
-                console.log("📡 Respuesta del servidor recibida:", response.status);
+                try {
+                    // MEJORA: Usamos la ruta con / al final para evitar el error 308 de Cloudflare
+                    const response = await fetch(`${window.location.origin}/api/register/`, {
+                        method: 'POST',
+                        body: formData
+                    });
 
-                if (response.ok) {
-                    console.log("✅ Registro exitoso. Redirigiendo...");
-                    window.location.href = "/gracias";
-                } else {
-                    let errorMessage = "ERROR EN EL REGISTRO";
-                    try {
+                    console.log("📡 STATUS API:", response.status);
+
+                    if (response.ok) {
+                        console.log("✅ ÉXITO - Redirigiendo a Gracias");
+                        window.location.href = "/gracias";
+                    } else {
                         const errorData = await response.json();
-                        errorMessage = errorData.error || errorMessage;
-                    } catch (parseError) {
-                        console.error("Error al parsear JSON de error:", parseError);
+                        showBeTogetherAlert(errorData.error?.toUpperCase() || "ERROR EN EL REGISTRO");
+                        btn.disabled = false;
+                        btn.innerHTML = originalContent;
                     }
-                    
-                    showBeTogetherAlert(errorMessage.toUpperCase());
+                } catch (error) {
+                    console.error("❌ ERROR CRÍTICO FETCH:", error);
+                    showBeTogetherAlert("ERROR DE CONEXIÓN. INTENTA DE NUEVO.");
                     btn.disabled = false;
                     btn.innerHTML = originalContent;
                 }
-            } catch (error) {
-                console.error("❌ Error crítico en Fetch:", error);
-                showBeTogetherAlert("ERROR DE CONEXIÓN. INTENTA DE NUEVO.");
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-            }
-        });
-    });
+            });
+        };
+
+        // Ejecutar en load y en transiciones de Astro (si usas ViewTransitions)
+        window.addEventListener('load', initForm);
+        document.addEventListener('astro:page-load', initForm);
+    })();
 </script>

@@ -49,7 +49,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     if (!email.includes("@") || nombre.length < 2) {
       return new Response(JSON.stringify({ error: "Datos inválidos" }), { status: 400 });
     }
-
+console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
     // CONTEXTO
     const ip =
       request.headers.get("cf-connecting-ip") ||
