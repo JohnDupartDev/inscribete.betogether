@@ -7,6 +7,13 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
     <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
     <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-300/10 rounded-full blur-3xl"></div>
     
+    <div id="custom-alert" class="fixed top-10 left-1/2 -translate-x-1/2 z-[100] hidden">
+        <div class="bg-white/20 backdrop-blur-xl border border-white/30 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-bounce">
+            <span class="text-2xl">⚠️</span>
+            <p id="alert-message" class="font-bold text-sm md:text-base text-white tracking-wide"></p>
+        </div>
+    </div>
+
     <div class="max-w-4xl mx-auto px-6 relative z-10">
         <div class="text-center mb-8 md:mb-12">
             <span class="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-sm font-bold uppercase tracking-widest border border-white/30 mb-6">
@@ -27,14 +34,14 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
                     </div>
                     <div class="space-y-2">
                         <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Correo Electrónico</label>
-                        <input name="email" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white placeholder-white/40" placeholder="maria@tuempresa.com" type="email" required />
+                        <input name="email" id="email" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white placeholder-white/40" placeholder="maria@tuempresa.com" type="email" required />
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-4 md:gap-6">
                     <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white px-2">WhatsApp</label>
-                        <input name="tel" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 outline-none transition-all text-white placeholder-white/40" placeholder="+57 3155870958" type="tel" required />
+                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white px-2">Teléfono (Colombia)</label>
+                        <input name="tel" id="tel" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 outline-none transition-all text-white placeholder-white/40" placeholder="3155870958" type="tel" maxlength="10" required />
                     </div>
                     <div class="space-y-2">
                         <label for="categoria" class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Categoría de Producto</label>
@@ -76,19 +83,67 @@ import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
 <script>
     const form = document.getElementById('pioneros-form') as HTMLFormElement;
     const btn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const alertBox = document.getElementById('custom-alert') as HTMLDivElement;
+    const alertMsg = document.getElementById('alert-message') as HTMLParagraphElement;
+
+    // Función para mostrar alerta con estilo BeTogether
+    const showBeTogetherAlert = (message: string) => {
+        alertMsg.innerText = message;
+        alertBox.classList.remove('hidden');
+        setTimeout(() => {
+            alertBox.classList.add('hidden');
+        }, 4000);
+    };
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Cambiar estado del botón
-        btn.disabled = true;
-        btn.innerText = "PROCESANDO...";
-        btn.style.opacity = "0.7";
+        const formData = new FormData(form);
+        const email = formData.get("email")?.toString() || "";
+        const tel = formData.get("tel")?.toString().replace(/\s+/g, '') || "";
 
-        // Aquí iría tu lógica para enviar los datos a tu base de datos o Google Sheets
-        // Por ahora simulamos el envío y redirigimos
-        setTimeout(() => {
-            window.location.href = "/gracias";
-        }, 1000);
+        // 🛡️ VALIDACIÓN DE CORREO
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            showBeTogetherAlert("Por favor, ingresa un correo electrónico válido.");
+            return;
+        }
+
+        // 🛡️ VALIDACIÓN DE TELÉFONO COLOMBIANO
+        const telRegex = /^3[0-9]{9}$/;
+        if (!telRegex.test(tel)) {
+            showBeTogetherAlert("El número de teléfono debe ser un celular válido de Colombia (10 dígitos y empezar con 3).");
+            return;
+        }
+
+        // Estado de carga
+        btn.disabled = true;
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                window.location.href = "/gracias";
+            } else {
+                let errorMessage = "NO SE PUDO COMPLETAR EL REGISTRO.";
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.error || errorMessage;
+                } catch (e) {}
+                
+                showBeTogetherAlert(errorMessage.toUpperCase());
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            }
+        } catch (error) {
+            showBeTogetherAlert("ERROR DE CONEXIÓN. INTENTA DE NUEVO.");
+            btn.disabled = false;
+            btn.innerHTML = originalContent;
+        }
     });
 </script>

@@ -1,24 +1,38 @@
-# build output
+# Salida de compilación (Build output)
+# No queremos subir la carpeta dist/ porque se genera de nuevo en cada despliegue
 dist/
 
-# generated types
+# Tipos generados automáticamente por Astro
+# Estos archivos los crea Astro dinámicamente según tu código
 .astro/
 
-# dependencies
+# Dependencias (Librerías externas)
+# Jamás se suben las node_modules/, pesan demasiado y se instalan con 'npm install'
 node_modules/
 
-# logs
+# Registros de errores (Logs)
+# Archivos temporales que crean los gestores de paquetes al fallar
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# environment variables
+# VARIABLES DE ENTORNO (CRÍTICO PARA SEGURIDAD) 🛡️
+# Aquí es donde bloqueamos que tus tokens de Meta y URLs de Google se suban a GitHub
 .env
 .env.production
+.env.local
+.env.*.local
 
-# macOS-specific files
+# Archivos específicos de macOS
+# Archivos ocultos que crea el sistema operativo y no sirven para la web
 .DS_Store
 
-# jetbrains setting folder
+# Carpetas de configuración de editores (JetBrains / VS Code)
 .idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

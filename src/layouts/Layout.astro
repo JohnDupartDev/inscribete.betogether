@@ -5,14 +5,29 @@ import ThemeToggle from "../components/ThemeToggle.astro";
 import "../styles/global.css";
 
 const { title = "BeTogether - Club de Pioneros" } = Astro.props;
-const description = "Únete a BeTogether, el ecosistema omnicanal para emprendedores en Colombia. Transforma tu marca con logística pro, tiendas online y eventos masivos.";
+const description = "Únete a BeTogether, el ecosistema omnicanal para emprendedores en Colombia. Transforma tu marca con logística internacional, tienda online y eventos en las ciudades mas importantes de Colombia.";
 const siteUrl = "https://inscribete.betogether.com.co";
-const ogImage = "/portada-betogether.jpg";
+const ogImage = "/portada.jpg";
 ---
 
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
   <head>
+    <!-- Google Tag Manager -->
+<script is:inline> 
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PK9VPB4N');
+</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "vyrgxt7czl");
+</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
@@ -66,9 +81,14 @@ const ogImage = "/portada-betogether.jpg";
         document.documentElement.classList.add('dark');
       }
     </script>
+    
   </head>
 
   <body class="landing-pioneros bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300 antialiased">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PK9VPB4N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <Header />
     
     <slot />
