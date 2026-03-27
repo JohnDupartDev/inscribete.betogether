@@ -119,7 +119,7 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
                 client_user_agent: userAgent,
               }
             }],
-            test_event_code: "TEST6866"
+            test_event_code: "TEST65918"
           })
         })
           .then(res => res.json())

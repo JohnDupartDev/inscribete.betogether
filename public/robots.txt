@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloqueo de rutas internas (opcional pero recomendado)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_astro/
+
+# Sitemap
+Sitemap: https://inscribete.betogether.com.co/sitemap.xml
