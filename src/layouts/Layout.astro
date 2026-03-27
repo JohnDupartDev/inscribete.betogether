@@ -13,21 +13,22 @@ const ogImage = "/portada.jpg";
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
   <head>
-    <!-- Google Tag Manager -->
-<script is:inline> 
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-PK9VPB4N');
-</script>
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vyrgxt7czl");
-</script>
+    <script is:inline> 
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-PK9VPB4N');
+    </script>
+
+    <script type="text/javascript" is:inline>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vyrgxt7czl");
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
@@ -57,7 +58,12 @@ const ogImage = "/portada.jpg";
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
       rel="stylesheet"
+      media="print" 
+      onload="this.media='all'"
     />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    </noscript>
 
     <link
       rel="preload"
@@ -72,23 +78,26 @@ const ogImage = "/portada.jpg";
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
           return localStorage.getItem('theme');
         }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
         return 'light';
       })();
     
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
+      if (theme === 'dark') {
         document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
       }
+      window.localStorage.setItem('theme', theme);
     </script>
     
   </head>
 
   <body class="landing-pioneros bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300 antialiased">
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PK9VPB4N"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PK9VPB4N"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
     <Header />
     
     <slot />
@@ -98,10 +107,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         const theme = localStorage.getItem("theme") || "light";
         if (theme === "dark") {
           document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
         }
       };
 
-      setupTheme();
+      // Manejo de View Transitions si se activan en el futuro
       document.addEventListener('astro:after-swap', setupTheme);
     </script>
 
