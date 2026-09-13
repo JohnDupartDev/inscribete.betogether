@@ -1,141 +1,816 @@
 ---
-import { ArrowRight, Lock, ShieldCheck, Headset } from "lucide-astro";
+import {
+    ArrowRight,
+    Lock,
+    ShieldCheck,
+    Headset,
+    Instagram,
+    Mail,
+    MessageCircle,
+    Store,
+} from "lucide-astro";
 ---
 
-<section class="py-12 md:py-24 bg-gradient-to-br from-primary to-[#2900ff] text-white relative overflow-hidden" id="registro">
-    <div class="absolute inset-0 bg-black/20"></div>
-    <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-300/10 rounded-full blur-3xl"></div>
-    
-    <div id="custom-alert" class="fixed top-10 left-1/2 -translate-x-1/2 z-[100] hidden">
-        <div class="bg-white/20 backdrop-blur-xl border border-white/30 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-bounce">
-            <span class="text-2xl">⚠️</span>
-            <p id="alert-message" class="font-bold text-sm md:text-base text-white tracking-wide"></p>
+<section
+    id="registro"
+    class="relative overflow-hidden bg-gradient-to-br from-[#1c1c2e] via-[#2d1f4e] to-[#1c1c2e] py-12 md:py-24"
+>
+    <!-- Fondo decorativo -->
+    <div class="absolute inset-0 bg-black/10"></div>
+
+    <div
+        class="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-[#ff00c8]/10 blur-3xl"
+    ></div>
+
+    <div
+        class="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-[#7000ff]/20 blur-3xl"
+    ></div>
+
+    <!-- ALERTA -->
+    <div
+        id="custom-alert"
+        class="fixed left-1/2 top-6 z-[100] hidden w-[calc(100%-2rem)] max-w-lg -translate-x-1/2"
+    >
+        <div
+            id="custom-alert-box"
+            class="flex items-start gap-3 rounded-2xl border border-white/20 bg-[#21183d]/95 px-5 py-4 text-white shadow-2xl backdrop-blur-xl"
+        >
+            <span id="alert-icon" class="text-xl">
+                ⚠️
+            </span>
+
+            <div>
+                <p
+                    id="alert-title"
+                    class="font-bold"
+                >
+                    Revisa la información
+                </p>
+
+                <p
+                    id="alert-message"
+                    class="mt-1 text-sm text-white/80"
+                ></p>
+            </div>
         </div>
     </div>
 
-    <div class="max-w-4xl mx-auto px-6 relative z-10">
-        <div class="text-center mb-8 md:mb-12">
-            <span class="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-sm font-bold uppercase tracking-widest border border-white/30 mb-6">
-                🎯 Cupos limitados 
+    <div class="relative z-10 mx-auto max-w-4xl px-5 md:px-6">
+        <!-- HEADER -->
+        <div class="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+            <span
+                class="mb-5 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white backdrop-blur-md"
+            >
+                🎯 Cupos limitados
             </span>
-            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 md:mb-6 text-white">Únete al Club de Pioneros</h2>
-            <p class="text-white/90 text-base md:text-lg max-w-2xl mx-auto">
-                Asegura tu cupo en la fase beta y obtén <strong class="text-[#FFD700]">descuentos</strong> mensuales. Beneficios exclusivos de lanzamiento.
+
+            <h2
+                class="text-3xl font-extrabold leading-tight text-white md:text-5xl"
+            >
+                ¿Listo para llevar tu negocio al siguiente nivel?
+            </h2>
+
+            <p
+                class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg"
+            >
+                Forma parte de nuestra comunidad. Regístrate y cuéntanos un
+                poco sobre tu negocio para conocer cómo podemos ayudarte a crecer.
             </p>
         </div>
 
-        <div class="bg-white/10 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-12 border border-white/20 shadow-2xl">
-            <form id="pioneros-form" class="space-y-4 md:space-y-6" onsubmit="handleBeTogetherSubmit(event); return false;">
-                <div class="grid md:grid-cols-2 gap-4 md:gap-6">
-                    <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Nombre Completo</label>
-                        <input name="nombre" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white placeholder-white/40" placeholder="Ej. Maria Garcia" type="text" required />
+        <!-- FORM CARD -->
+        <div
+            class="mx-auto max-w-2xl rounded-[2rem] bg-white p-6 shadow-2xl md:p-10"
+        >
+            <form
+                id="pioneros-form"
+                class="space-y-6"
+                onsubmit="handleBeTogetherSubmit(event); return false;"
+            >
+
+                <!-- NOMBRE -->
+                <div class="space-y-2">
+                    <label
+                        for="nombre"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        Tu nombre
+                        <span class="text-pink-600">*</span>
+                    </label>
+
+                    <input
+                        id="nombre"
+                        name="nombre"
+                        type="text"
+                        autocomplete="name"
+                        required
+                        placeholder="Ej. María García"
+                        class="w-full rounded-xl border-2 border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                    />
+                </div>
+
+                <!-- TIPO -->
+                <fieldset class="space-y-3">
+                    <legend
+                        class="text-sm font-bold text-slate-700"
+                    >
+                        ¿Eres un...?
+                        <span class="text-pink-600">*</span>
+                    </legend>
+
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <label
+                            class="group flex cursor-pointer items-start gap-3 rounded-xl border-2 border-slate-200 bg-slate-50 p-4 transition-all hover:border-[#ff00c8]/50 hover:bg-[#ff00c8]/5 has-[:checked]:border-[#ff00c8] has-[:checked]:bg-[#ff00c8]/5 has-[:checked]:ring-4 has-[:checked]:ring-[#ff00c8]/5"
+                        >
+                            <input
+                                type="radio"
+                                name="tipo"
+                                value="emprendimiento"
+                                required
+                                class="mt-1 h-5 w-5 shrink-0 accent-[#ff00c8]"
+                            />
+
+                            <div>
+                                <span
+                                    class="block text-sm font-bold text-slate-700 group-has-[:checked]:text-[#c1009a]"
+                                >
+                                    Emprendimiento
+                                </span>
+
+                                <span
+                                    class="mt-1 block text-xs leading-relaxed text-slate-500"
+                                >
+                                    Tengo una marca, negocio o proyecto.
+                                </span>
+                            </div>
+                        </label>
+
+                        <label
+                            class="group flex cursor-pointer items-start gap-3 rounded-xl border-2 border-slate-200 bg-slate-50 p-4 transition-all hover:border-[#ff00c8]/50 hover:bg-[#ff00c8]/5 has-[:checked]:border-[#ff00c8] has-[:checked]:bg-[#ff00c8]/5 has-[:checked]:ring-4 has-[:checked]:ring-[#ff00c8]/5"
+                        >
+                            <input
+                                type="radio"
+                                name="tipo"
+                                value="fundacion"
+                                required
+                                class="mt-1 h-5 w-5 shrink-0 accent-[#ff00c8]"
+                            />
+
+                            <div>
+                                <span
+                                    class="block text-sm font-bold text-slate-700 group-has-[:checked]:text-[#c1009a]"
+                                >
+                                    Fundación
+                                </span>
+
+                                <span
+                                    class="mt-1 block text-xs leading-relaxed text-slate-500"
+                                >
+                                    Represento una organización o fundación.
+                                </span>
+                            </div>
+                        </label>
                     </div>
-                    <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Correo Electrónico</label>
-                        <input name="email" id="email" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white placeholder-white/40" placeholder="maria@tuempresa.com" type="email" required />
+                </fieldset>
+
+                <!-- VENDE ONLINE -->
+                <fieldset class="space-y-3">
+                    <legend
+                        class="text-sm font-bold text-slate-700"
+                    >
+                        ¿Ya vendes en línea?
+                        <span class="text-pink-600">*</span>
+                    </legend>
+
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <label
+                            class="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-slate-200 bg-slate-50 p-4 transition-all hover:border-[#ff00c8]/50 has-[:checked]:border-[#ff00c8] has-[:checked]:bg-[#ff00c8]/5"
+                        >
+                            <input
+                                type="radio"
+                                name="online"
+                                value="si"
+                                required
+                                class="h-5 w-5 accent-[#ff00c8]"
+                            />
+
+                            <span class="text-sm font-semibold text-slate-700">
+                                Sí
+                            </span>
+                        </label>
+
+                        <label
+                            class="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-slate-200 bg-slate-50 p-4 transition-all hover:border-[#ff00c8]/50 has-[:checked]:border-[#ff00c8] has-[:checked]:bg-[#ff00c8]/5"
+                        >
+                            <input
+                                type="radio"
+                                name="online"
+                                value="no"
+                                required
+                                class="h-5 w-5 accent-[#ff00c8]"
+                            />
+
+                            <span class="text-sm font-semibold text-slate-700">
+                                No
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- FESTIVALES -->
+                <fieldset class="space-y-3">
+                    <legend
+                        class="text-sm font-bold text-slate-700"
+                    >
+                        ¿Has invertido en festivales anteriormente?
+                        <span class="text-pink-600">*</span>
+                    </legend>
+
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <label
+                            class="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-slate-200 bg-slate-50 p-4 transition-all hover:border-[#ff00c8]/50 has-[:checked]:border-[#ff00c8] has-[:checked]:bg-[#ff00c8]/5"
+                        >
+                            <input
+                                type="radio"
+                                name="festival"
+                                value="si"
+                                required
+                                class="h-5 w-5 accent-[#ff00c8]"
+                            />
+
+                            <span class="text-sm font-semibold text-slate-700">
+                                Sí
+                            </span>
+                        </label>
+
+                        <label
+                            class="flex cursor-pointer items-center gap-3 rounded-xl border-2 border-slate-200 bg-slate-50 p-4 transition-all hover:border-[#ff00c8]/50 has-[:checked]:border-[#ff00c8] has-[:checked]:bg-[#ff00c8]/5"
+                        >
+                            <input
+                                type="radio"
+                                name="festival"
+                                value="no"
+                                required
+                                class="h-5 w-5 accent-[#ff00c8]"
+                            />
+
+                            <span class="text-sm font-semibold text-slate-700">
+                                No
+                            </span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- REDES -->
+                <div class="space-y-2">
+                    <label
+                        for="redes_sociales"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        ¿Cómo podemos encontrar tu negocio en redes sociales?
+                    </label>
+
+                    <div class="relative">
+                        <Instagram
+                            class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                        />
+
+                        <input
+                            id="redes_sociales"
+                            name="redes_sociales"
+                            type="text"
+                            placeholder="@tunegocio o enlace a tu perfil"
+                            class="w-full rounded-xl border-2 border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                        />
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-4 md:gap-6">
-                    <div class="space-y-2">
-                        <label class="font-bold text-xs md:text-sm uppercase tracking-wider text-white px-2">Teléfono (Colombia)</label>
-                        <input name="tel" id="tel" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 outline-none transition-all text-white placeholder-white/40" placeholder="3155870958" type="tel" maxlength="10" required />
-                    </div>
-                    <div class="space-y-2">
-                        <label for="categoria" class="font-bold text-xs md:text-sm uppercase tracking-wider text-white/80 px-2">Categoría de Producto</label>
-                        <select id="categoria" name="categoria" class="w-full px-5 py-3 md:px-6 md:py-4 bg-white/20 border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-primary/50 outline-none transition-all text-white appearance-none cursor-pointer">
-                            <option value="moda" class="bg-[#120B2E]">Moda y Accesorios</option>
-                            <option value="hogar" class="bg-[#120B2E]">Hogar y Decoración</option>
-                            <option value="belleza" class="bg-[#120B2E]">Belleza y Salud</option>
-                            <option value="alimentos" class="bg-[#120B2E]">Alimentos y Bebidas</option>
-                            <option value="tecnologia" class="bg-[#120B2E]">Tecnología</option>
-                            <option value="otro" class="bg-[#120B2E]">Otro</option>
+                <!-- RED SOCIAL -->
+                <div class="space-y-2">
+                    <label
+                        for="red_social"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        Elige la red social
+                    </label>
+
+                    <select
+                        id="red_social"
+                        name="red_social"
+                        class="w-full cursor-pointer rounded-xl border-2 border-slate-200 bg-slate-50 px-4 py-3 text-slate-700 outline-none transition-all hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                    >
+                        <option value="">
+                            Selecciona una opción
+                        </option>
+
+                        <option value="facebook">
+                            Facebook
+                        </option>
+
+                        <option value="instagram">
+                            Instagram
+                        </option>
+
+                        <option value="tiktok">
+                            TikTok
+                        </option>
+
+                        <option value="linkedin">
+                            LinkedIn
+                        </option>
+
+                        <option value="otra">
+                            Otra
+                        </option>
+                    </select>
+                </div>
+
+                <!-- EVENTOS -->
+                <div class="space-y-2">
+                    <label
+                        for="participar_eventos"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        ¿Te gustaría participar en eventos?
+                        <span class="text-pink-600">*</span>
+                    </label>
+
+                    <select
+                        id="participar_eventos"
+                        name="participar_eventos"
+                        required
+                        class="w-full cursor-pointer rounded-xl border-2 border-slate-200 bg-slate-50 px-4 py-3 text-slate-700 outline-none transition-all hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                    >
+                        <option value="">
+                            Selecciona una opción
+                        </option>
+
+                        <option value="no_interesado">
+                            No estoy interesado
+                        </option>
+
+                        <option value="si_claro">
+                            Sí, claro
+                        </option>
+
+                        <option value="depende_evento">
+                            Depende del evento
+                        </option>
+                    </select>
+                </div>
+
+                <!-- CATEGORIA -->
+                <div class="space-y-2">
+                    <label
+                        for="categoria"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        Categoría de tu negocio
+                    </label>
+
+                    <div class="relative">
+                        <Store
+                            class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                        />
+
+                        <select
+                            id="categoria"
+                            name="categoria"
+                            class="w-full cursor-pointer rounded-xl border-2 border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-slate-700 outline-none transition-all hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                        >
+                            <option value="">
+                                Selecciona una categoría
+                            </option>
+
+                            <option value="moda">
+                                Moda y accesorios
+                            </option>
+
+                            <option value="hogar">
+                                Hogar y decoración
+                            </option>
+
+                            <option value="belleza">
+                                Belleza y salud
+                            </option>
+
+                            <option value="alimentos">
+                                Alimentos y bebidas
+                            </option>
+
+                            <option value="tecnologia">
+                                Tecnología
+                            </option>
+
+                            <option value="servicios">
+                                Servicios
+                            </option>
+
+                            <option value="otro">
+                                Otro
+                            </option>
                         </select>
                     </div>
                 </div>
 
-                <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
+                <!-- EMAIL -->
+                <div class="space-y-2">
+                    <label
+                        for="email"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        Un email para ponernos en contacto
+                        <span class="text-pink-600">*</span>
+                    </label>
 
-                <div class="flex items-start md:items-center gap-3 py-2">
-                    <input type="checkbox" class="w-5 h-5 mt-1 md:mt-0 rounded border-white/30 bg-white/20 text-primary focus:ring-0 cursor-pointer" id="terms" required />
-                    <label for="terms" class="text-xs md:text-sm text-white/80 leading-tight cursor-pointer">Acepto los términos y condiciones y quiero recibir información sobre eventos y beneficios.</label>
+                    <div class="relative">
+                        <Mail
+                            class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                        />
+
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            autocomplete="email"
+                            required
+                            placeholder="nombre@empresa.com"
+                            class="w-full rounded-xl border-2 border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                        />
+                    </div>
                 </div>
 
-                <button id="submit-btn" class="w-full bg-[#FFD700] hover:bg-yellow-400 text-black font-black text-lg md:text-xl py-4 md:py-5 rounded-2xl shadow-xl shadow-black/30 transition-all transform hover:scale-[1.01] active:scale-95 flex items-center justify-center gap-2" type="submit">
-                    🚀 REGISTRARME AHORA
-                    <ArrowRight class="w-5 h-5 md:w-6 md:h-6" />
+                <!-- WHATSAPP -->
+                <div class="space-y-2">
+                    <label
+                        for="tel"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        Tu número de WhatsApp
+                    </label>
+
+                    <div class="relative">
+                        <MessageCircle
+                            class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                        />
+
+                        <input
+                            id="tel"
+                            name="tel"
+                            type="tel"
+                            inputmode="numeric"
+                            autocomplete="tel"
+                            maxlength="10"
+                            placeholder="3155870958"
+                            class="w-full rounded-xl border-2 border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                        />
+                    </div>
+
+                    <p class="text-xs text-slate-400">
+                        Ingresa los 10 dígitos sin +57.
+                    </p>
+                </div>
+
+                <!-- MENSAJE -->
+                <div class="space-y-2">
+                    <label
+                        for="mensaje_adicional"
+                        class="block text-sm font-bold text-slate-700"
+                    >
+                        Algo que quieras decirnos
+                    </label>
+
+                    <textarea
+                        id="mensaje_adicional"
+                        name="mensaje_adicional"
+                        rows="4"
+                        placeholder="Cuéntanos brevemente sobre tu negocio..."
+                        class="w-full resize-y rounded-xl border-2 border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                    ></textarea>
+                </div>
+
+                <!-- HONEYPOT -->
+                <div
+                    class="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                    aria-hidden="true"
+                >
+                    <label for="company">
+                        Empresa
+                    </label>
+
+                    <input
+                        id="company"
+                        name="company"
+                        type="text"
+                        tabindex="-1"
+                        autocomplete="off"
+                    />
+                </div>
+
+                <!-- TERMINOS -->
+                <label
+                    class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4"
+                >
+                    <input
+                        id="terms"
+                        name="terms"
+                        type="checkbox"
+                        value="1"
+                        required
+                        class="mt-0.5 h-5 w-5 shrink-0 accent-[#ff00c8]"
+                    />
+
+                    <span
+                        class="text-xs leading-relaxed text-slate-600 md:text-sm"
+                    >
+                        Acepto los términos y condiciones y autorizo el
+                        tratamiento de mis datos para recibir información
+                        relacionada con eventos, oportunidades y beneficios.
+                    </span>
+                </label>
+
+                <!-- BOTON -->
+                <button
+                    id="submit-btn"
+                    type="submit"
+                    class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff00c8] to-[#7000ff] px-6 py-4 text-base font-bold text-white shadow-lg shadow-purple-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-purple-500/30 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 md:text-lg"
+                >
+                    <span id="submit-text">
+                        Enviar registro
+                    </span>
+
+                    <ArrowRight class="h-5 w-5" />
                 </button>
-                
-                <p class="text-center text-[10px] md:text-sm text-white/60 mt-4">
-                    ⚡ Los primeros 10 en registrarse reciben asesoría personalizada GRATIS
+
+                <p
+                    class="text-center text-xs leading-relaxed text-slate-400"
+                >
+                    Tus datos serán utilizados únicamente para gestionar tu
+                    registro y contactarte.
                 </p>
             </form>
         </div>
 
-        <div class="mt-8 md:mt-12 flex flex-wrap justify-center gap-4 md:gap-8 items-center opacity-70 text-xs md:text-sm">
-            <span class="flex items-center gap-2"><Lock class="w-4 h-4" /> Datos seguros</span>
-            <span class="flex items-center gap-2"><ShieldCheck class="w-4 h-4" /> Pago protegido</span>
-            <span class="flex items-center gap-2"><Headset class="w-4 h-4" /> Soporte incluido</span>
+        <!-- TRUST -->
+        <div
+            class="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs text-white/60 md:mt-10 md:gap-8 md:text-sm"
+        >
+            <span class="flex items-center gap-2">
+                <Lock class="h-4 w-4" />
+                Datos seguros
+            </span>
+
+            <span class="flex items-center gap-2">
+                <ShieldCheck class="h-4 w-4" />
+                Información protegida
+            </span>
+
+            <span class="flex items-center gap-2">
+                <Headset class="h-4 w-4" />
+                Soporte incluido
+            </span>
         </div>
     </div>
 </section>
 
 <script is:inline>
+    let beTogetherSubmitting = false;
+    let beTogetherAlertTimeout = null;
+
+    function showBeTogetherAlert(message, type = "error") {
+        const container =
+            document.getElementById("custom-alert");
+
+        const box =
+            document.getElementById("custom-alert-box");
+
+        const title =
+            document.getElementById("alert-title");
+
+        const messageElement =
+            document.getElementById("alert-message");
+
+        const icon =
+            document.getElementById("alert-icon");
+
+        if (
+            !container ||
+            !box ||
+            !title ||
+            !messageElement ||
+            !icon
+        ) {
+            return;
+        }
+
+        if (beTogetherAlertTimeout) {
+            clearTimeout(beTogetherAlertTimeout);
+        }
+
+        if (type === "success") {
+            icon.textContent = "✅";
+            title.textContent = "Registro recibido";
+
+            box.classList.remove(
+                "bg-[#21183d]/95"
+            );
+
+            box.classList.add(
+                "bg-emerald-900/95"
+            );
+        } else {
+            icon.textContent = "⚠️";
+            title.textContent =
+                "No pudimos completar el registro";
+
+            box.classList.remove(
+                "bg-emerald-900/95"
+            );
+
+            box.classList.add(
+                "bg-[#21183d]/95"
+            );
+        }
+
+        messageElement.textContent = message;
+
+        container.classList.remove("hidden");
+
+        beTogetherAlertTimeout = setTimeout(() => {
+            container.classList.add("hidden");
+        }, 6000);
+    }
+
+    function normalizeBeTogetherPhone(value) {
+        return String(value || "")
+            .replace(/\D/g, "")
+            .slice(0, 10);
+    }
+
     async function handleBeTogetherSubmit(event) {
-        // 1. BLOQUEO TOTAL E INMEDIATO
         if (event) {
             event.preventDefault();
             event.stopPropagation();
         }
 
-        console.log("🚀 [PRODUCCIÓN] Interceptado. Bloqueando navegación nativa.");
-
-        const form = document.getElementById('pioneros-form');
-        const btn = document.getElementById('submit-btn');
-
-        if (!form || !btn) return false;
-
-        // 2. UI LOADING
-        const originalContent = btn.innerHTML;
-        btn.disabled = true;
-        btn.innerHTML = "<span>🚀 PROCESANDO...</span>";
-
-        const formData = new FormData(form);
-
-        try {
-            const apiUrl = window.location.origin + "/api/register/";
-            console.log("📡 Enviando datos a:", apiUrl);
-
-            // 3. FETCH CON ESPERA (AWAIT)
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                body: formData,
-                // Añadimos keepalive para que la petición sobreviva si algo intenta cerrar la página
-                keepalive: true 
-            });
-
-            console.log("📡 Respuesta recibida con status:", response.status);
-
-            if (response.ok) {
-                console.log("✅ API registrada con éxito en Sheets/Meta/Telegram");
-                // 4. SOLO REDIRIGIMOS CUANDO EL API RESPONDIÓ OK
-                window.location.href = "/gracias/";
-            } else {
-                const errorData = await response.json();
-                console.error("❌ Error del API:", errorData);
-                alert("HUBO UN ERROR: " + (errorData.error || "Revisa tus datos"));
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-            }
-        } catch (error) {
-            console.error("❌ FALLO CRÍTICO DE CONEXIÓN:", error);
-            alert("Error de conexión. Por favor intenta de nuevo.");
-            btn.disabled = false;
-            btn.innerHTML = originalContent;
+        if (beTogetherSubmitting) {
+            return false;
         }
 
-        return false; // Refuerzo final para el onsubmit
+        const form =
+            document.getElementById("pioneros-form");
+
+        const btn =
+            document.getElementById("submit-btn");
+
+        const submitText =
+            document.getElementById("submit-text");
+
+        if (!form || !btn) {
+            return false;
+        }
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return false;
+        }
+
+        beTogetherSubmitting = true;
+        btn.disabled = true;
+
+        if (submitText) {
+            submitText.textContent =
+                "Procesando...";
+        }
+
+        const formData =
+            new FormData(form);
+
+        /*
+         * Mantiene TEL porque es el campo
+         * que ya utiliza el flujo actual de Meta CAPI.
+         */
+        const phone =
+            normalizeBeTogetherPhone(
+                formData.get("tel")
+            );
+
+        if (phone) {
+            formData.set("tel", phone);
+
+            /*
+             * Alias adicional para el campo
+             * correspondiente al formulario antiguo.
+             */
+            formData.set(
+                "whatsapp",
+                phone
+            );
+        }
+
+        try {
+            const apiUrl =
+                window.location.origin +
+                "/api/register/";
+
+            console.log(
+                "🚀 [PRODUCCIÓN] Enviando formulario:",
+                apiUrl
+            );
+
+            const response =
+                await fetch(apiUrl, {
+                    method: "POST",
+                    body: formData,
+                    keepalive: true,
+                });
+
+            console.log(
+                "📡 Respuesta API:",
+                response.status
+            );
+
+            if (response.ok) {
+                console.log(
+                    "✅ Registro procesado correctamente en API / Meta CAPI"
+                );
+
+                if (submitText) {
+                    submitText.textContent =
+                        "¡Registro enviado!";
+                }
+
+                showBeTogetherAlert(
+                    "Tus datos fueron registrados correctamente.",
+                    "success"
+                );
+
+                /*
+                 * Solo se redirige cuando
+                 * el backend confirma éxito.
+                 */
+                window.location.href =
+                    "/gracias/";
+
+                return false;
+            }
+
+            let errorMessage =
+                "Revisa tus datos e intenta nuevamente.";
+
+            try {
+                const errorData =
+                    await response.json();
+
+                if (errorData?.error) {
+                    errorMessage =
+                        errorData.error;
+                } else if (
+                    errorData?.message
+                ) {
+                    errorMessage =
+                        errorData.message;
+                }
+            } catch (jsonError) {
+                console.warn(
+                    "Respuesta sin JSON válido.",
+                    jsonError
+                );
+            }
+
+            console.error(
+                "❌ Error API:",
+                response.status,
+                errorMessage
+            );
+
+            showBeTogetherAlert(
+                errorMessage,
+                "error"
+            );
+        } catch (error) {
+            console.error(
+                "❌ FALLO DE CONEXIÓN:",
+                error
+            );
+
+            showBeTogetherAlert(
+                "No pudimos conectarnos con el servidor. Intenta nuevamente.",
+                "error"
+            );
+        } finally {
+            beTogetherSubmitting = false;
+            btn.disabled = false;
+
+            if (submitText) {
+                submitText.textContent =
+                    "Enviar registro";
+            }
+        }
+
+        return false;
     }
+
+    window.handleBeTogetherSubmit =
+        handleBeTogetherSubmit;
 </script>
