@@ -1,0 +1,37 @@
+# BeTogether - Club de Pioneros
+
+> BeTogether es un ecosistema omnicanal para emprendedores, marcas, fundaciones y negocios en Colombia. Esta landing permite conocer BeTogether y registrarse en el Club de Pioneros.
+
+BeTogether conecta herramientas digitales, comercio electrónico, logística, eventos y oportunidades para ayudar a emprendedores colombianos a desarrollar y hacer crecer sus negocios.
+
+El sitio https://inscribete.betogether.com.co es la página oficial de inscripción al Club de Pioneros de BeTogether.
+
+## Club de Pioneros
+
+- [Inscripción al Club de Pioneros](https://inscribete.betogether.com.co/): Página oficial para conocer el programa y realizar el registro.
+
+## Plataforma BeTogether
+
+- [Marketplace](https://www.betogether.com.co/marketplace): Marketplace de BeTogether.
+- [Logística](https://www.betogether.com.co/logistica): Información sobre los servicios y soluciones de logística.
+- [Planes](https://www.betogether.com.co/planes): Planes disponibles para emprendedores y negocios.
+- [Eventos](https://www.betogether.com.co/eventos): Eventos y oportunidades disponibles dentro del ecosistema.
+- [Registrarse](https://www.betogether.com.co/register): Registro principal en la plataforma BeTogether.
+
+## Compañía
+
+- [Sobre nosotros](https://www.betogether.com.co/sobre-nosotros): Información sobre BeTogether COMPANY y su propósito.
+- [Contacto](https://www.betogether.com.co/contacto): Canales oficiales de contacto.
+- [Únete como repartidor](https://www.betogether.com.co/register/courier): Registro para personas interesadas en participar como repartidores.
+
+## Información legal
+
+- [Términos y Condiciones](https://www.betogether.com.co/terminos-y-condiciones): Términos aplicables al uso de los servicios de BeTogether.
+- [Política de Privacidad](https://www.betogether.com.co/politica-de-privacidad): Información sobre privacidad y tratamiento de datos.
+
+## Optional
+
+- [Instagram](https://www.instagram.com/betogethercol/): Cuenta oficial de BeTogether en Instagram.
+- [Facebook](https://www.facebook.com/profile.php?id=61577098046804): Cuenta oficial de BeTogether en Facebook.
+- [TikTok](https://www.tiktok.com/@betogethercol): Cuenta oficial de BeTogether en TikTok.
+- [LinkedIn](https://www.linkedin.com/company/be-togethercol/): Perfil oficial de BeTogether en LinkedIn.

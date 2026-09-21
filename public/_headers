@@ -1,0 +1,39 @@
+# ============================================================
+# BeTogether — Cloudflare Pages static asset cache policy
+# ============================================================
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/portada-betogether.jpg
+  Cache-Control: public, max-age=2592000
+
+/portada-betogether-480.webp
+  Cache-Control: public, max-age=2592000
+
+/portada-betogether-800.webp
+  Cache-Control: public, max-age=2592000
+
+/portada.jpg
+  Cache-Control: public, max-age=2592000
+
+/pienieros-f.jpg
+  Cache-Control: public, max-age=2592000
+
+/pienieros-f-480.webp
+  Cache-Control: public, max-age=2592000
+
+/pienieros-f-901.webp
+  Cache-Control: public, max-age=2592000
+
+/logobetogether.svg
+  Cache-Control: public, max-age=2592000
+
+/llms.txt
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/robots.txt
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600, must-revalidate

@@ -1,14 +1,22 @@
 ---
 import { ArrowRight } from "lucide-astro";
 // VITAL: Asegúrate de que la ruta de la imagen sea correcta en la carpeta /public
-const heroImage = "/portada-betogether.jpg"; 
+const heroImage = "/portada-betogether.jpg";
+const heroWebp480 = "/portada-betogether-480.webp";
+const heroWebp800 = "/portada-betogether-800.webp";
 ---
 <section class="relative min-h-[90vh] lg:min-h-screen lg:pt-16 pb-36 flex items-center overflow-hidden bg-background-dark">
     <div class="absolute inset-0 z-0">
         <picture>
-            <source media="(min-width: 768px)" srcset={heroImage} />
+            <source
+                type="image/webp"
+                srcset={`${heroWebp480} 480w, ${heroWebp800} 800w`}
+                sizes="100vw"
+            />
             <img 
                 src={heroImage}
+                width="800"
+                height="549"
                 alt="Emprendedor exitoso BeTogether" 
                 class="w-full h-full object-cover scale-100"
                 loading="eager" 
@@ -29,11 +37,11 @@ const heroImage = "/portada-betogether.jpg";
     <div class="relative z-40 max-w-7xl mx-auto px-6 w-full p-0">
         <div class="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-12 items-center">
             <div class="space-y-8">
-                <div class="inline-block animate-fade-in">
-                    <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold uppercase tracking-widest">
-                        🚀 ¡Llegamos a Colombia! - Cupos limitados: 300 pioneros
-                    </span>
-                </div>
+               <div class="hidden sm:inline-block animate-fade-in">
+    <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold uppercase tracking-widest">
+        🚀 ¡Llegamos a Colombia! - Cupos limitados: 300 pioneros
+    </span>
+</div>
                 
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white max-w-4xl drop-shadow-lg">
                     Tú creas la <span class="gradient-text">marca</span>, <br class="hidden md:block"/> nosotros ponemos <span class="text-primary underline decoration-4 underline-offset-8 decoration-white/30">la Plataforma</span>.
