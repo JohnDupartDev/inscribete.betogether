@@ -38,11 +38,15 @@ const ogImage = "/portada.jpg";
         };
 
         const scheduleClarity = () => {
-          if ("requestIdleCallback" in window) {
-            requestIdleCallback(loadClarity, { timeout: 4000 });
-          } else {
-            setTimeout(loadClarity, 2000);
-          }
+          const startOnInteraction = () => {
+            loadClarity();
+          };
+
+          window.addEventListener("pointerdown", startOnInteraction, { once: true });
+          window.addEventListener("keydown", startOnInteraction, { once: true });
+          window.addEventListener("touchstart", startOnInteraction, { once: true });
+
+          window.setTimeout(loadClarity, 12000);
         };
 
         if (document.readyState === "complete") {
