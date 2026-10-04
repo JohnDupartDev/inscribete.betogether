@@ -21,7 +21,17 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
     // Astro inyecta las variables de entorno en locals.runtime.env en producción
     const env = (locals as any).runtime?.env || {};
 
-    const GOOGLE_WEBHOOK = env.GOOGLE_WEBHOOK_URL || import.meta.env.GOOGLE_WEBHOOK_URL;
+    const GOOGLE_WEBHOOK_LEGACY =
+      env.GOOGLE_WEBHOOK_URL || import.meta.env.GOOGLE_WEBHOOK_URL;
+
+    const GOOGLE_WEBHOOK_V2 =
+      env.GOOGLE_WEBHOOK_URL_V2 || import.meta.env.GOOGLE_WEBHOOK_URL_V2;
+
+    const GOOGLE_WEBHOOK =
+      GOOGLE_WEBHOOK_V2 || GOOGLE_WEBHOOK_LEGACY;
+
+    const GOOGLE_WEBHOOK_SECRET =
+      env.GOOGLE_WEBHOOK_SECRET || import.meta.env.GOOGLE_WEBHOOK_SECRET;
     const PIXEL_ID = env.META_PIXEL_ID || import.meta.env.META_PIXEL_ID;
     const ACCESS_TOKEN = env.META_ACCESS_TOKEN || import.meta.env.META_ACCESS_TOKEN;
     const TELEGRAM_TOKEN = env.TELEGRAM_BOT_TOKEN || import.meta.env.TELEGRAM_BOT_TOKEN;
@@ -30,22 +40,58 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
     const contentType = request.headers.get("content-type") || "";
 
     // ✅ ACEPTAR TODOS LOS FORMATOS
-    let nombre = "", email = "", tel = "", categoria = "", honeypot = "";
+    let nombre = "";
+    let email = "";
+    let tel = "";
+    let categoria = "";
+    let honeypot = "";
+
+    let tipo = "";
+    let online = "";
+    let festival = "";
+    let redes_sociales = "";
+    let red_social = "";
+    let participar_eventos = "";
+    let mensaje_adicional = "";
+    let terms = "";
 
     if (contentType.includes("multipart/form-data")) {
       const formData = await request.formData();
       nombre = formData.get("nombre")?.toString() || "";
       email = formData.get("email")?.toString() || "";
-      tel = formData.get("tel")?.toString() || "";
+      tel =
+        formData.get("tel")?.toString() ||
+        formData.get("whatsapp")?.toString() ||
+        "";
       categoria = formData.get("categoria")?.toString() || "";
       honeypot = formData.get("company")?.toString() || "";
+
+      tipo = formData.get("tipo")?.toString() || "";
+      online = formData.get("online")?.toString() || "";
+      festival = formData.get("festival")?.toString() || "";
+      redes_sociales = formData.get("redes_sociales")?.toString() || "";
+      red_social = formData.get("red_social")?.toString() || "";
+      participar_eventos =
+        formData.get("participar_eventos")?.toString() || "";
+      mensaje_adicional =
+        formData.get("mensaje_adicional")?.toString() || "";
+      terms = formData.get("terms")?.toString() || "";
     } else if (contentType.includes("application/json")) {
       const body = await request.json();
       nombre = body.nombre || "";
       email = body.email || "";
-      tel = body.tel || "";
+      tel = body.tel || body.whatsapp || "";
       categoria = body.categoria || "";
       honeypot = body.company || "";
+
+      tipo = body.tipo || "";
+      online = body.online || "";
+      festival = body.festival || "";
+      redes_sociales = body.redes_sociales || "";
+      red_social = body.red_social || "";
+      participar_eventos = body.participar_eventos || "";
+      mensaje_adicional = body.mensaje_adicional || "";
+      terms = body.terms || "";
     } else {
       return new Response(JSON.stringify({ error: "Formato no soportado" }), { status: 400 });
     }
@@ -60,7 +106,20 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
       return new Response(JSON.stringify({ error: "Datos inválidos" }), { status: 400 });
     }
 
-    console.log("📥 DATA RECIBIDA EN API:", { nombre, email, tel, categoria });
+    console.log("📥 DATA RECIBIDA EN API:", {
+      nombre: !!nombre,
+      email: !!email,
+      tel: !!tel,
+      categoria: !!categoria,
+      tipo: !!tipo,
+      online: !!online,
+      festival: !!festival,
+      redes_sociales: !!redes_sociales,
+      red_social: !!red_social,
+      participar_eventos: !!participar_eventos,
+      mensaje_adicional: !!mensaje_adicional,
+      terms: !!terms
+    });
 
     // CONTEXTO PARA META
     const ip =
@@ -74,12 +133,53 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
     // 🔥 DEBUG DE VARIABLES (Crucial para ver en Cloudflare Logs)
     console.log("🔍 ENV CHECK (Production):", {
       hasSheets: !!GOOGLE_WEBHOOK,
+      hasSheetsV2: !!GOOGLE_WEBHOOK_V2,
+      hasSheetsSecret: !!GOOGLE_WEBHOOK_SECRET,
       hasPixel: !!PIXEL_ID,
       hasTelegram: !!TELEGRAM_TOKEN
     });
 
     const emailHash = await hashData(email);
-    const telHash = await hashData(tel);
+    const telHash = tel.trim() ? await hashData(tel) : "";
+
+    const leadPayload = {
+      nombre,
+      email,
+      tel,
+      whatsapp: tel,
+      categoria,
+      tipo,
+      online,
+      festival,
+      redes_sociales,
+      red_social,
+      participar_eventos,
+      mensaje_adicional,
+      terms,
+      fecha: new Date().toISOString()
+    };
+
+    const sheetsPayload = GOOGLE_WEBHOOK_V2
+      ? {
+          ...leadPayload,
+          webhook_secret: GOOGLE_WEBHOOK_SECRET || ""
+        }
+      : leadPayload;
+
+    const metaUserData: {
+      em: string[];
+      ph?: string[];
+      client_ip_address: string;
+      client_user_agent: string;
+    } = {
+      em: [emailHash],
+      client_ip_address: ip,
+      client_user_agent: userAgent
+    };
+
+    if (telHash) {
+      metaUserData.ph = [telHash];
+    }
 
     const tasks: Promise<any>[] = [];
 
@@ -91,7 +191,7 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
         fetch(GOOGLE_WEBHOOK, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nombre, email, tel, categoria, fecha: new Date().toISOString() })
+          body: JSON.stringify(sheetsPayload)
         })
           .then(res => res.text())
           .then(txt => console.log("✅ Sheets OK:", txt))
@@ -112,12 +212,7 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
               event_name: "CompleteRegistration",
               event_time: Math.floor(Date.now() / 1000),
               action_source: "website",
-              user_data: {
-                em: [emailHash],
-                ph: [telHash],
-                client_ip_address: ip,
-                client_user_agent: userAgent,
-              }
+              user_data: metaUserData
             }],
             test_event_code: "TEST65918"
           })
@@ -132,12 +227,30 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
     // 🤖 TELEGRAM
     // =========================
     if (TELEGRAM_TOKEN && TELEGRAM_CHAT_ID) {
+      const telegramValue = (value: string, maxLength = 500) =>
+        escapeMarkdown(
+          (value.trim() || "No informado").slice(0, maxLength)
+        );
+
+      const termsLabel =
+        terms === "1"
+          ? "Sí"
+          : terms || "No informado";
+
       const text =
         `🚀 *Nuevo Lead*\n\n` +
-        `👤 ${escapeMarkdown(nombre)}\n` +
-        `📧 ${escapeMarkdown(email)}\n` +
-        `📱 ${escapeMarkdown(tel)}\n` +
-        `🏷️ ${escapeMarkdown(categoria)}`;
+        `👤 Nombre: ${telegramValue(nombre, 120)}\n` +
+        `📧 Email: ${telegramValue(email, 254)}\n` +
+        `📱 WhatsApp: ${telegramValue(tel, 40)}\n` +
+        `🏷️ Categoría: ${telegramValue(categoria, 100)}\n` +
+        `🏢 Tipo: ${telegramValue(tipo, 100)}\n` +
+        `🛒 Vende online: ${telegramValue(online, 30)}\n` +
+        `🎪 Festivales: ${telegramValue(festival, 30)}\n` +
+        `🌐 Red social: ${telegramValue(red_social, 80)}\n` +
+        `🔗 Perfil social: ${telegramValue(redes_sociales, 500)}\n` +
+        `🎟️ Eventos: ${telegramValue(participar_eventos, 100)}\n` +
+        `💬 Mensaje: ${telegramValue(mensaje_adicional, 1000)}\n` +
+        `✅ Términos: ${telegramValue(termsLabel, 30)}`;
 
       tasks.push(
         fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
