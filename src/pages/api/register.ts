@@ -130,6 +130,10 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
 
     const userAgent = request.headers.get("user-agent") || "unknown";
 
+    // Identificador único compartido entre CAPI y navegador.
+    // En C1 todavía no cambia el flujo de GTM.
+    const eventId = crypto.randomUUID();
+
     // 🔥 DEBUG DE VARIABLES (Crucial para ver en Cloudflare Logs)
     console.log("🔍 ENV CHECK (Production):", {
       hasSheets: !!GOOGLE_WEBHOOK,
@@ -211,6 +215,7 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
             data: [{
               event_name: "CompleteRegistration",
               event_time: Math.floor(Date.now() / 1000),
+              event_id: eventId,
               action_source: "website",
               user_data: metaUserData
             }],
@@ -270,7 +275,10 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
     // 🚀 CRÍTICO: Esperamos a que todas las promesas se resuelvan antes de cerrar la conexión Edge
     await Promise.allSettled(tasks);
 
-    return new Response(JSON.stringify({ ok: true }), {
+    return new Response(JSON.stringify({
+      ok: true,
+      event_id: eventId
+    }), {
       status: 200,
       headers: { "Content-Type": "application/json" }
     });

@@ -731,6 +731,37 @@ import {
             );
 
             if (response.ok) {
+                let successData = null;
+
+                try {
+                    successData =
+                        await response.json();
+                } catch (jsonError) {
+                    console.warn(
+                        "Respuesta de éxito sin JSON válido.",
+                        jsonError
+                    );
+                }
+
+                const metaEventId =
+                    typeof successData?.event_id === "string"
+                        ? successData.event_id.trim()
+                        : "";
+
+                if (metaEventId) {
+                    try {
+                        sessionStorage.setItem(
+                            "betogether_meta_event_id",
+                            metaEventId
+                        );
+                    } catch (storageError) {
+                        console.warn(
+                            "No fue posible persistir temporalmente el event_id de Meta.",
+                            storageError
+                        );
+                    }
+                }
+
                 console.log(
                     "✅ Registro procesado correctamente en API / Meta CAPI"
                 );

@@ -7,7 +7,53 @@ import { CheckCircle, Rocket, MessageCircle } from "lucide-astro";
 
 <Layout title="¡Gracias por registrarte! | BeTogether">
     <script is:inline>
-        // Esto dispara el evento de Cliente Potencial automáticamente al cargar la página
+        (() => {
+            const storageKey =
+                "betogether_meta_event_id";
+
+            let metaEventId = "";
+
+            try {
+                metaEventId =
+                    sessionStorage.getItem(
+                        storageKey
+                    ) || "";
+
+                if (metaEventId) {
+                    /*
+                     * Se consume una sola vez.
+                     * Un refresh de /gracias/ no vuelve
+                     * a emitir el evento de registro.
+                     */
+                    sessionStorage.removeItem(
+                        storageKey
+                    );
+                }
+            } catch (storageError) {
+                console.warn(
+                    "No fue posible leer el event_id temporal de Meta.",
+                    storageError
+                );
+            }
+
+            if (!metaEventId) {
+                return;
+            }
+
+            window.dataLayer =
+                window.dataLayer || [];
+
+            window.dataLayer.push({
+                event:
+                    "betogether_registration_complete",
+                meta_event_id:
+                    metaEventId
+            });
+        })();
+    </script>
+
+    <script is:inline>
+        // Evento Lead histórico. C1 lo conserva sin cambios.
         if (typeof fbq !== 'undefined') {
             fbq('track', 'Lead');
         }
