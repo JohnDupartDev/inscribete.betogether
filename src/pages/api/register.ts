@@ -218,8 +218,7 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
               event_id: eventId,
               action_source: "website",
               user_data: metaUserData
-            }],
-            test_event_code: "TEST65918"
+            }]
           })
         })
           .then(res => res.json())
