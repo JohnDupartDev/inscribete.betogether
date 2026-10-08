@@ -1,0 +1,408 @@
+---
+import {
+    ArrowRight,
+    MessageCircle,
+    ShieldCheck,
+    UserRound,
+} from "lucide-astro";
+
+interface Props {
+    instance: string;
+    compact?: boolean;
+}
+
+const {
+    instance,
+    compact = false,
+} = Astro.props;
+
+const nameId = `${instance}-nombre`;
+const phoneId = `${instance}-tel`;
+const termsId = `${instance}-terms`;
+---
+
+<div
+    class:list={[
+        "w-full rounded-[1.75rem] border border-white/20 bg-white shadow-2xl",
+        compact
+            ? "p-5 sm:p-6"
+            : "p-6 md:p-8",
+    ]}
+>
+    <div class="mb-5">
+        <div
+            class="mb-3 inline-flex items-center gap-2 rounded-full bg-[#ff00c8]/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-[#b00089]"
+        >
+            <MessageCircle class="h-4 w-4" />
+            Contacto rápido
+        </div>
+
+        <h3
+            class:list={[
+                "font-extrabold leading-tight text-slate-900",
+                compact
+                    ? "text-xl md:text-2xl"
+                    : "text-2xl md:text-3xl",
+            ]}
+        >
+            Déjanos tus datos
+        </h3>
+
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Solo necesitamos tu nombre y WhatsApp. Un asesor de BeTogether
+            se comunicará contigo.
+        </p>
+    </div>
+
+    <form
+        class="space-y-4"
+        data-betogether-lead-form
+    >
+        <div class="space-y-2">
+            <label
+                for={nameId}
+                class="block text-sm font-bold text-slate-700"
+            >
+                Nombre
+                <span class="text-pink-600">*</span>
+            </label>
+
+            <div class="relative">
+                <UserRound
+                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                />
+
+                <input
+                    id={nameId}
+                    name="nombre"
+                    type="text"
+                    autocomplete="name"
+                    required
+                    minlength="2"
+                    maxlength="120"
+                    placeholder="Ej. María García"
+                    class="w-full rounded-xl border-2 border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                />
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <label
+                for={phoneId}
+                class="block text-sm font-bold text-slate-700"
+            >
+                WhatsApp
+                <span class="text-pink-600">*</span>
+            </label>
+
+            <div class="relative">
+                <MessageCircle
+                    class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
+                />
+
+                <input
+                    id={phoneId}
+                    name="tel"
+                    type="tel"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    required
+                    minlength="10"
+                    maxlength="10"
+                    pattern="[0-9]{10}"
+                    title="Ingresa un número celular colombiano de 10 dígitos."
+                    placeholder="3155870958"
+                    class="w-full rounded-xl border-2 border-slate-200 bg-slate-50 py-3 pl-12 pr-4 text-slate-900 outline-none transition-all placeholder:text-slate-400 hover:border-slate-300 focus:border-[#ff00c8] focus:bg-white focus:ring-4 focus:ring-[#ff00c8]/10"
+                />
+            </div>
+
+            <p class="text-xs text-slate-400">
+                Ingresa los 10 dígitos sin +57.
+            </p>
+        </div>
+
+        <div
+            class="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+            aria-hidden="true"
+        >
+            <label>
+                Empresa
+                <input
+                    name="company"
+                    type="text"
+                    tabindex="-1"
+                    autocomplete="off"
+                />
+            </label>
+        </div>
+
+        <label
+            class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4"
+        >
+            <input
+                id={termsId}
+                name="terms"
+                type="checkbox"
+                value="1"
+                required
+                class="mt-0.5 h-5 w-5 shrink-0 accent-[#ff00c8]"
+            />
+
+            <span class="text-xs leading-relaxed text-slate-600">
+                Acepto los
+                <a
+                    href="/terminos-y-condiciones/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-bold text-[#9d007d] underline underline-offset-2"
+                >
+                    términos y condiciones
+                </a>
+                y la
+                <a
+                    href="/terminos-y-condiciones/#privacidad"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-bold text-[#9d007d] underline underline-offset-2"
+                >
+                    política de privacidad
+                </a>
+                y autorizo el tratamiento de mis datos para que
+                BeTogether pueda contactarme.
+            </span>
+        </label>
+
+        <button
+            type="submit"
+            data-submit-button
+            class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff00c8] to-[#7000ff] px-6 py-4 text-base font-bold text-white shadow-lg shadow-purple-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-purple-500/30 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+            <span data-submit-text>
+                Quiero que me contacten
+            </span>
+
+            <ArrowRight class="h-5 w-5" />
+        </button>
+
+        <div
+            data-form-message
+            class="hidden rounded-xl px-4 py-3 text-sm font-medium"
+            role="status"
+            aria-live="polite"
+        ></div>
+
+        <p
+            class="flex items-center justify-center gap-2 text-center text-xs leading-relaxed text-slate-400"
+        >
+            <ShieldCheck class="h-4 w-4 shrink-0" />
+            Tus datos serán utilizados únicamente para gestionar tu contacto.
+        </p>
+    </form>
+</div>
+
+<script is:inline>
+(() => {
+    if (window.__beTogetherLeadCaptureBound) {
+        return;
+    }
+
+    window.__beTogetherLeadCaptureBound = true;
+
+    const normalizePhone = (value) =>
+        String(value || "")
+            .replace(/\D/g, "")
+            .slice(0, 10);
+
+    const setMessage = (form, message, type = "error") => {
+        const element =
+            form.querySelector("[data-form-message]");
+
+        if (!element) {
+            return;
+        }
+
+        element.textContent = message;
+
+        element.classList.remove(
+            "hidden",
+            "bg-red-50",
+            "text-red-700",
+            "bg-emerald-50",
+            "text-emerald-700"
+        );
+
+        if (type === "success") {
+            element.classList.add(
+                "bg-emerald-50",
+                "text-emerald-700"
+            );
+        } else {
+            element.classList.add(
+                "bg-red-50",
+                "text-red-700"
+            );
+        }
+    };
+
+    document.addEventListener("input", (event) => {
+        const input = event.target;
+
+        if (
+            !(input instanceof HTMLInputElement) ||
+            input.name !== "tel" ||
+            !input.closest("[data-betogether-lead-form]")
+        ) {
+            return;
+        }
+
+        input.value =
+            normalizePhone(input.value);
+    });
+
+    document.addEventListener("submit", async (event) => {
+        const form = event.target;
+
+        if (
+            !(form instanceof HTMLFormElement) ||
+            !form.matches("[data-betogether-lead-form]")
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (form.dataset.submitting === "1") {
+            return;
+        }
+
+        const phoneInput =
+            form.querySelector('input[name="tel"]');
+
+        if (phoneInput instanceof HTMLInputElement) {
+            phoneInput.value =
+                normalizePhone(phoneInput.value);
+        }
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const button =
+            form.querySelector("[data-submit-button]");
+
+        const buttonText =
+            form.querySelector("[data-submit-text]");
+
+        const formData =
+            new FormData(form);
+
+        const phone =
+            normalizePhone(
+                formData.get("tel")
+            );
+
+        if (!/^3\d{9}$/.test(phone)) {
+            setMessage(
+                form,
+                "Ingresa un número celular colombiano válido de 10 dígitos."
+            );
+
+            if (phoneInput instanceof HTMLInputElement) {
+                phoneInput.focus();
+            }
+
+            return;
+        }
+
+        formData.set("tel", phone);
+
+        form.dataset.submitting = "1";
+
+        if (button instanceof HTMLButtonElement) {
+            button.disabled = true;
+        }
+
+        if (buttonText) {
+            buttonText.textContent =
+                "Enviando...";
+        }
+
+        try {
+            const response =
+                await fetch("/api/register/", {
+                    method: "POST",
+                    body: formData,
+                    keepalive: true,
+                });
+
+            let responseData = null;
+
+            try {
+                responseData =
+                    await response.json();
+            } catch (_) {
+                responseData = null;
+            }
+
+            if (!response.ok) {
+                throw new Error(
+                    responseData?.error ||
+                    "No pudimos registrar tus datos. Intenta nuevamente."
+                );
+            }
+
+            const metaEventId =
+                typeof responseData?.event_id === "string"
+                    ? responseData.event_id.trim()
+                    : "";
+
+            if (metaEventId) {
+                try {
+                    sessionStorage.setItem(
+                        "betogether_meta_event_id",
+                        metaEventId
+                    );
+                } catch (_) {
+                    // El registro ya quedó confirmado.
+                }
+            }
+
+            setMessage(
+                form,
+                "Datos recibidos. Te estamos redirigiendo...",
+                "success"
+            );
+
+            if (buttonText) {
+                buttonText.textContent =
+                    "¡Datos recibidos!";
+            }
+
+            window.location.href =
+                "/gracias/";
+        } catch (error) {
+            const message =
+                error instanceof Error
+                    ? error.message
+                    : "No pudimos registrar tus datos. Intenta nuevamente.";
+
+            setMessage(
+                form,
+                message
+            );
+
+            form.dataset.submitting = "0";
+
+            if (button instanceof HTMLButtonElement) {
+                button.disabled = false;
+            }
+
+            if (buttonText) {
+                buttonText.textContent =
+                    "Quiero que me contacten";
+            }
+        }
+    });
+})();
+</script>
