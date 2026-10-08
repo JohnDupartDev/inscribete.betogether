@@ -58,6 +58,13 @@ const ogImage = "/portada.jpg";
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#ffffff" />
+    <style is:inline>
+      :root {
+        color-scheme: light;
+      }
+    </style>
     <title>{title}</title>
 
     <meta name="description" content={description} />
@@ -102,28 +109,10 @@ const ogImage = "/portada.jpg";
       fetchpriority="high"
     />
 
-    <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
-      })();
-    
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-      window.localStorage.setItem('theme', theme);
-    </script>
     
   </head>
 
-  <body class="landing-pioneros bg-background-light dark:bg-background-dark text-slate-900 dark:text-white transition-colors duration-300 antialiased">
+  <body class="landing-pioneros bg-background-light text-slate-900 antialiased">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PK9VPB4N"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
@@ -131,19 +120,6 @@ const ogImage = "/portada.jpg";
     
     <slot />
 
-    <script>
-      const setupTheme = () => {
-        const theme = localStorage.getItem("theme") || "light";
-        if (theme === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      };
-
-      // Manejo de View Transitions si se activan en el futuro
-      document.addEventListener('astro:after-swap', setupTheme);
-    </script>
 
     <Footer />
   </body>
