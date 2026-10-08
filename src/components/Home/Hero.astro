@@ -1,113 +1,195 @@
 ---
-import { ArrowRight } from "lucide-astro";
+import { ArrowRight, CheckCircle2 } from "lucide-astro";
 import LeadCaptureForm from "./LeadCaptureForm.astro";
-
-const heroImage = "/portada-betogether.jpg";
-const heroWebp480 = "/portada-betogether-480.webp";
-const heroWebp800 = "/portada-betogether-800.webp";
 ---
 
 <section
-    class="relative flex min-h-[90vh] items-center overflow-hidden bg-background-dark pb-36 lg:min-h-screen lg:pt-16"
+    class="relative flex min-h-[calc(100vh-64px)] items-center overflow-hidden bg-[#171126] pb-28 pt-24 md:pt-28 lg:min-h-screen lg:pb-32 lg:pt-28"
 >
-    <div class="absolute inset-0 z-0">
-        <picture>
-            <source
-                type="image/webp"
-                srcset={`${heroWebp480} 480w, ${heroWebp800} 800w`}
-                sizes="100vw"
-            />
-
-            <img
-                src={heroImage}
-                width="800"
-                height="549"
-                alt="Emprendedor exitoso BeTogether"
-                class="h-full w-full scale-100 object-cover"
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-            />
-        </picture>
-
-        <div class="absolute inset-0 z-10 bg-black/40"></div>
-        <div class="hero-gradient absolute inset-0 z-20 opacity-80"></div>
-
-        <div
-            class="pointer-events-none absolute inset-0 z-30 opacity-30"
-        >
-            <div
-                class="absolute left-10 top-20 h-64 w-64 animate-float rounded-full bg-primary blur-3xl will-change-transform"
-            ></div>
-
-            <div
-                class="absolute bottom-20 right-10 h-96 w-96 animate-pulse-slow rounded-full bg-purple-600 blur-3xl will-change-transform"
-            ></div>
-        </div>
-    </div>
+    <!-- ========================================================= -->
+    <!-- FONDO CORPORATIVO -->
+    <!-- ========================================================= -->
 
     <div
-        class="relative z-40 mx-auto w-full max-w-7xl px-5 sm:px-6"
+        class="pointer-events-none absolute inset-0 overflow-hidden"
+        aria-hidden="true"
+    >
+        <!-- Gradiente base -->
+        <div
+            class="absolute inset-0 bg-[linear-gradient(135deg,#171126_0%,#251642_48%,#170d29_100%)]"
+        ></div>
+
+        <!-- Glow fucsia -->
+        <div
+            class="absolute -left-32 top-10 h-[30rem] w-[30rem] rounded-full bg-[#ff00c8]/20 blur-[120px]"
+        ></div>
+
+        <!-- Glow violeta -->
+        <div
+            class="absolute -right-40 top-1/4 h-[34rem] w-[34rem] rounded-full bg-[#7000ff]/25 blur-[140px]"
+        ></div>
+
+        <!-- Glow inferior -->
+        <div
+            class="absolute bottom-[-14rem] left-1/3 h-[28rem] w-[28rem] rounded-full bg-[#ff00c8]/10 blur-[130px]"
+        ></div>
+
+        <!-- Trama sutil -->
+        <div
+            class="absolute inset-0 opacity-[0.045]"
+            style="
+                background-image:
+                    linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px);
+                background-size: 46px 46px;
+            "
+        ></div>
+
+        <!-- Degradado hacia bordes -->
+        <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,rgba(8,5,15,.38)_100%)]"
+        ></div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- CONTENIDO -->
+    <!-- ========================================================= -->
+
+    <div
+        class="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8"
     >
         <div
-            class="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,56%)_minmax(340px,44%)] lg:gap-10 xl:gap-14"
+            class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,57%)_minmax(340px,43%)] lg:gap-12 xl:gap-16"
         >
-            <div class="space-y-7 md:space-y-8">
-                <div class="hidden animate-fade-in sm:inline-block">
-                    <span
-                        class="rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white backdrop-blur-md"
+            <!-- ================================================= -->
+            <!-- MENSAJE -->
+            <!-- ================================================= -->
+
+            <div
+                class="mx-auto w-full max-w-3xl lg:mx-0"
+            >
+                <!-- ANTETÍTULO -->
+                <div
+                    class="mb-6 animate-fade-in"
+                >
+                    <div
+                        class="inline-flex max-w-full items-center gap-2 rounded-full border border-[#ff4dda]/30 bg-[#ff00c8]/10 px-4 py-2 backdrop-blur-md"
                     >
-                        🚀 ¡Llegamos a Colombia! - Cupos limitados: 300 pioneros
-                    </span>
+                        <span
+                            class="h-2 w-2 shrink-0 rounded-full bg-[#ff4dda] shadow-[0_0_14px_rgba(255,77,218,.85)]"
+                        ></span>
+
+                        <span
+                            class="text-[11px] font-bold uppercase leading-relaxed tracking-[0.12em] text-[#ffb4ef] sm:text-xs"
+                        >
+                            Convocatoria piloto · Bogotá, Soacha y Sabana Norte · Cupos limitados
+                        </span>
+                    </div>
                 </div>
 
+                <!-- TITULAR -->
                 <h1
-                    class="max-w-4xl text-4xl font-extrabold leading-tight text-white drop-shadow-lg md:text-6xl lg:text-7xl"
+                    class="max-w-4xl text-[2.55rem] font-extrabold leading-[1.04] tracking-[-0.035em] text-white sm:text-5xl md:text-[3.4rem] lg:text-[3.55rem] xl:text-[4rem]"
                 >
-                    Tú creas la
-                    <span class="gradient-text">marca</span>,
-                    <br class="hidden md:block" />
-                    nosotros ponemos
+                    Estamos reuniendo
+                    <span class="text-[#ff54da]">
+                        negocios que ya venden
+                    </span>,
+                    para que
                     <span
-                        class="text-primary underline decoration-4 underline-offset-8 decoration-white/30"
+                        class="bg-gradient-to-r from-[#ff54da] via-[#d873ff] to-[#9c7cff] bg-clip-text text-transparent"
                     >
-                        la Plataforma
-                    </span>.
+                        vendan, cobren y entreguen desde un solo lugar.
+                    </span>
                 </h1>
 
+                <!-- SUBTÍTULO / PROPUESTA DE VALOR -->
                 <div
-                    class="max-w-lg rounded-2xl border border-white/10 bg-white/10 p-6 text-base leading-relaxed text-slate-100 shadow-2xl backdrop-blur-md md:text-lg"
+                    class="mt-7 max-w-3xl text-base leading-7 text-white/75 md:text-[1.08rem] md:leading-8"
                 >
                     <p>
-                        <span
-                            class="mb-2 block text-xl font-bold text-white md:text-2xl"
+                        Si hoy
+                        <strong class="font-semibold text-white">
+                            muestras en Instagram, cierras por WhatsApp y cobras y despachas a mano
+                        </strong>,
+                        este piloto es para ti.
+                        Recibes
+                        <strong class="font-semibold text-white">
+                            tu tienda en línea propia, pagos integrados y entregas en 24 horas en Bogotá y alrededores
+                        </strong>,
+                        con tres meses de acompañamiento.
+                        <strong
+                            class="font-bold text-[#ff9ae8]"
                         >
-                            🚀 Oportunidad única:
-                        </span>
-
-                        Estamos buscando a los
-                        <strong class="text-white">
-                            primeros 300 emprendedores
+                            Sin mensualidad: pagas únicamente por cada venta que realices (9% + $1.000).
                         </strong>
-                        para transformar el comercio en Colombia.
                     </p>
                 </div>
 
-                <div class="pt-2">
-                    <a
-                        href="#pilares"
-                        class="group inline-flex w-full items-center justify-center rounded-full border border-white/30 bg-white/10 px-8 py-4 text-center text-base font-bold text-white no-underline shadow-xl backdrop-blur-md transition-all hover:scale-105 hover:bg-white/20 sm:w-auto md:text-lg"
+                <!-- RESUMEN VISUAL DE VALOR -->
+                <div
+                    class="mt-7 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3"
+                    aria-hidden="true"
+                >
+                    <div
+                        class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm font-medium text-white/85 backdrop-blur-sm"
                     >
-                        Conocer los beneficios
+                        <CheckCircle2
+                            class="h-4 w-4 shrink-0 text-[#ff54da]"
+                        />
+                        Tienda propia
+                    </div>
+
+                    <div
+                        class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm font-medium text-white/85 backdrop-blur-sm"
+                    >
+                        <CheckCircle2
+                            class="h-4 w-4 shrink-0 text-[#ff54da]"
+                        />
+                        Pagos integrados
+                    </div>
+
+                    <div
+                        class="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm font-medium text-white/85 backdrop-blur-sm"
+                    >
+                        <CheckCircle2
+                            class="h-4 w-4 shrink-0 text-[#ff54da]"
+                        />
+                        Entregas en 24 h
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div
+                    class="mt-8"
+                >
+                    <a
+                        href="#postular-negocio"
+                        class="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff00c8] to-[#7000ff] px-7 py-4 text-center text-base font-bold text-white no-underline shadow-[0_14px_40px_rgba(150,0,255,.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(255,0,200,.34)] sm:w-auto sm:rounded-full sm:px-8"
+                    >
+                        Postular mi negocio
+
                         <ArrowRight
-                            class="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                            class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
                         />
                     </a>
+
+                    <p
+                        class="mt-3 max-w-xl text-sm leading-relaxed text-white/55"
+                    >
+                        Son dos preguntas. Revisamos tu negocio y te contactamos en 48 horas.
+                    </p>
                 </div>
             </div>
 
+            <!-- ================================================= -->
+            <!-- FORMULARIO -->
+            <!-- NO SE MODIFICA LeadCaptureForm -->
+            <!-- ================================================= -->
+
             <div
-                class="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto"
+                id="postular-negocio"
+                class="mx-auto w-full max-w-md scroll-mt-24 lg:mx-0 lg:ml-auto"
             >
                 <LeadCaptureForm
                     instance="hero"
@@ -117,10 +199,16 @@ const heroWebp800 = "/portada-betogether-800.webp";
         </div>
     </div>
 
-    <div class="wave-divider">
+    <!-- ========================================================= -->
+    <!-- DIVISOR -->
+    <!-- ========================================================= -->
+
+    <div
+        class="wave-divider"
+        aria-hidden="true"
+    >
         <svg
-            aria-hidden="true"
-            class="fill-white transition-colors duration-500 dark:fill-background-dark"
+            class="fill-white"
             preserveAspectRatio="none"
             viewBox="0 0 1200 120"
         >
@@ -132,35 +220,33 @@ const heroWebp800 = "/portada-betogether-800.webp";
 </section>
 
 <style>
-    .hero-gradient {
-        background: linear-gradient(
-            135deg,
-            rgba(45, 27, 105, 0.95) 0%,
-            rgba(16, 13, 15, 0.672) 100%
-        );
-    }
-
     .wave-divider {
         position: absolute;
         bottom: -1px;
         left: 0;
+        z-index: 30;
         width: 100%;
         overflow: hidden;
         line-height: 0;
-        z-index: 50;
     }
 
     .wave-divider svg {
         position: relative;
         display: block;
-        width: calc(150% + 1.3px);
-        height: 80px;
+        width: calc(145% + 1.3px);
+        height: 64px;
+    }
+
+    @media (min-width: 768px) {
+        .wave-divider svg {
+            height: 82px;
+        }
     }
 
     @keyframes fade-in {
         from {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(8px);
         }
 
         to {
@@ -170,6 +256,6 @@ const heroWebp800 = "/portada-betogether-800.webp";
     }
 
     .animate-fade-in {
-        animation: fade-in 0.8s ease-out forwards;
+        animation: fade-in 0.7s ease-out forwards;
     }
 </style>
