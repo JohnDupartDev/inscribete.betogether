@@ -1,0 +1,20 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "BeTogether",
+    "documentationUrl": "https://inscribete.betogether.com.co/"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:inscribete.betogether.com.co:catalog:landing",
+      "displayName": "BeTogether Convocatoria Piloto",
+      "type": "text/html",
+      "url": "https://inscribete.betogether.com.co/",
+      "description": "Landing oficial de BeTogether para la convocatoria piloto de negocios.",
+      "representativeQueries": [
+        "postular un negocio a BeTogether",
+        "información sobre la convocatoria piloto de BeTogether"
+      ]
+    }
+  ]
+}
