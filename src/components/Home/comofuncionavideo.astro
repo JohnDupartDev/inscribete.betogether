@@ -1,0 +1,378 @@
+---
+// src/components/Home/ComoFuncionaVideo.astro
+
+import {
+    Play,
+    X,
+    CheckCircle2,
+} from "lucide-astro";
+
+const videoId = "FwvP3WC1T1Y";
+const videoEmbedUrl =
+    `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+---
+
+<section
+    id="como-funciona"
+    class="relative overflow-hidden bg-white py-16 md:py-20"
+>
+    <!-- DECORACIÓN -->
+    <div
+        class="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+    >
+        <div
+            class="absolute -left-24 top-1/2 hidden h-72 w-72 -translate-y-1/2 rounded-full bg-[#ff00c8]/[0.05] blur-[100px] md:block"
+        ></div>
+
+        <div
+            class="absolute -right-24 top-1/3 hidden h-80 w-80 rounded-full bg-[#7000ff]/[0.06] blur-[110px] md:block"
+        ></div>
+    </div>
+
+    <div
+        class="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8"
+    >
+        <!-- ENCABEZADO -->
+        <div class="mx-auto max-w-3xl text-center">
+            <div
+                class="mx-auto inline-flex items-center gap-2 rounded-full border border-[#ff00c8]/20 bg-[#ff00c8]/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#9d007d]"
+            >
+                <span
+                    class="h-2 w-2 rounded-full bg-[#ff00c8]"
+                ></span>
+
+                Fácil y sin complicaciones
+            </div>
+
+            <h2
+                class="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-5xl"
+            >
+                Mira cómo funciona
+                <span
+                    class="bg-gradient-to-r from-[#ff00c8] to-[#7000ff] bg-clip-text text-transparent"
+                >
+                    BeTogether
+                </span>
+            </h2>
+
+            <p
+                class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg"
+            >
+                Conoce de forma rápida cómo puedes tener tu tienda,
+                recibir pagos y gestionar tus entregas desde un solo lugar.
+            </p>
+        </div>
+
+        <!-- VIDEO CARD -->
+        <div
+            class="mx-auto mt-10 max-w-5xl md:mt-12"
+        >
+            <button
+                type="button"
+                data-video-open
+                aria-haspopup="dialog"
+                aria-controls="betogether-video-modal"
+                class="group relative block w-full overflow-hidden rounded-[1.75rem] border border-slate-200 bg-[#171126] text-left shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl md:rounded-[2.5rem]"
+            >
+                <!-- THUMBNAIL -->
+                <div
+                    class="relative aspect-video w-full overflow-hidden"
+                >
+                    <img
+                        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+                        alt="Video: Cómo funciona BeTogether"
+                        loading="lazy"
+                        width="1280"
+                        height="720"
+                        class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+
+                    <!-- OVERLAY -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#171126]/90 via-[#171126]/25 to-transparent"
+                    ></div>
+
+                    <!-- PLAY -->
+                    <div
+                        class="absolute inset-0 flex items-center justify-center"
+                    >
+                        <div
+                            class="flex h-20 w-20 items-center justify-center rounded-full border border-white/30 bg-white/95 shadow-2xl transition-all duration-300 group-hover:scale-110 md:h-24 md:w-24"
+                        >
+                            <Play
+                                class="ml-1 h-8 w-8 fill-[#ff00c8] text-[#ff00c8] md:h-10 md:w-10"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- TEXTO INFERIOR -->
+                    <div
+                        class="absolute bottom-0 left-0 right-0 p-5 sm:p-7 md:p-8"
+                    >
+                        <div
+                            class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
+                        >
+                            <div>
+                                <p
+                                    class="text-xs font-bold uppercase tracking-[0.16em] text-[#ff9ae8]"
+                                >
+                                    Video explicativo
+                                </p>
+
+                                <p
+                                    class="mt-1 text-xl font-extrabold text-white md:text-2xl"
+                                >
+                                    Descubre cómo funciona paso a paso
+                                </p>
+                            </div>
+
+                            <span
+                                class="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white"
+                            >
+                                <Play class="h-4 w-4 fill-current" />
+                                Ver video
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </button>
+
+            <!-- BENEFICIOS RÁPIDOS -->
+            <div
+                class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3"
+            >
+                <div
+                    class="flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-4"
+                >
+                    <CheckCircle2
+                        class="h-5 w-5 shrink-0 text-[#ff00c8]"
+                    />
+
+                    <span
+                        class="text-sm font-semibold text-slate-700"
+                    >
+                        Crea tu tienda
+                    </span>
+                </div>
+
+                <div
+                    class="flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-4"
+                >
+                    <CheckCircle2
+                        class="h-5 w-5 shrink-0 text-[#ff00c8]"
+                    />
+
+                    <span
+                        class="text-sm font-semibold text-slate-700"
+                    >
+                        Recibe tus pagos
+                    </span>
+                </div>
+
+                <div
+                    class="flex items-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-4"
+                >
+                    <CheckCircle2
+                        class="h-5 w-5 shrink-0 text-[#ff00c8]"
+                    />
+
+                    <span
+                        class="text-sm font-semibold text-slate-700"
+                    >
+                        Gestiona tus entregas
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================================= -->
+<!-- MODAL VIDEO -->
+<!-- ========================================================= -->
+
+<div
+    id="betogether-video-modal"
+    data-video-modal
+    class="fixed inset-0 z-[999] hidden items-center justify-center p-4 md:p-8"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="betogether-video-title"
+    aria-hidden="true"
+>
+    <!-- BACKDROP -->
+    <button
+        type="button"
+        data-video-close
+        tabindex="-1"
+        aria-label="Cerrar video"
+        class="absolute inset-0 cursor-default bg-[#08050f]/90"
+    ></button>
+
+    <!-- MODAL -->
+    <div
+        class="relative z-10 w-full max-w-6xl overflow-hidden rounded-2xl border border-white/10 bg-[#171126] shadow-2xl md:rounded-[2rem]"
+    >
+        <!-- HEADER -->
+        <div
+            class="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3 sm:px-5"
+        >
+            <div class="min-w-0">
+                <p
+                    class="text-[10px] font-bold uppercase tracking-[0.18em] text-[#ff7de4]"
+                >
+                    BeTogether
+                </p>
+
+                <h3
+                    id="betogether-video-title"
+                    class="truncate text-sm font-bold text-white sm:text-base"
+                >
+                    Cómo funciona
+                </h3>
+            </div>
+
+            <button
+                type="button"
+                data-video-close
+                aria-label="Cerrar video"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white transition-all hover:bg-white/20"
+            >
+                <X class="h-5 w-5" />
+            </button>
+        </div>
+
+        <!-- RESPONSIVE VIDEO -->
+        <div
+            class="relative aspect-video w-full bg-black"
+            data-video-container
+            data-video-src={videoEmbedUrl}
+        ></div>
+    </div>
+</div>
+
+<script is:inline>
+(() => {
+    if (window.__beTogetherVideoModalBound) {
+        return;
+    }
+
+    window.__beTogetherVideoModalBound = true;
+
+    const modal =
+        document.querySelector("[data-video-modal]");
+
+    const container =
+        document.querySelector("[data-video-container]");
+
+    const openButtons =
+        document.querySelectorAll("[data-video-open]");
+
+    const closeButtons =
+        document.querySelectorAll("[data-video-close]");
+
+    if (
+        !(modal instanceof HTMLElement) ||
+        !(container instanceof HTMLElement)
+    ) {
+        return;
+    }
+
+    let lastFocusedElement = null;
+
+    const createIframe = () => {
+        if (container.querySelector("iframe")) {
+            return;
+        }
+
+        const src =
+            container.dataset.videoSrc;
+
+        if (!src) {
+            return;
+        }
+
+        const iframe =
+            document.createElement("iframe");
+
+        iframe.src = src;
+        iframe.title = "Cómo funciona BeTogether";
+        iframe.allow =
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy =
+            "strict-origin-when-cross-origin";
+
+        iframe.className =
+            "absolute inset-0 h-full w-full";
+
+        container.appendChild(iframe);
+    };
+
+    const removeIframe = () => {
+        const iframe =
+            container.querySelector("iframe");
+
+        if (iframe) {
+            iframe.remove();
+        }
+    };
+
+    const openModal = (trigger) => {
+        lastFocusedElement = trigger;
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        modal.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("overflow-hidden");
+
+        createIframe();
+
+        const closeButton =
+            modal.querySelector(
+                "button[data-video-close]:not([tabindex='-1'])"
+            );
+
+        if (closeButton instanceof HTMLElement) {
+            closeButton.focus();
+        }
+    };
+
+    const closeModal = () => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        modal.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("overflow-hidden");
+
+        removeIframe();
+
+        if (lastFocusedElement instanceof HTMLElement) {
+            lastFocusedElement.focus();
+        }
+    };
+
+    openButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            openModal(button);
+        });
+    });
+
+    closeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            closeModal();
+        });
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (
+            event.key === "Escape" &&
+            modal.getAttribute("aria-hidden") === "false"
+        ) {
+            closeModal();
+        }
+    });
+})();
+</script>

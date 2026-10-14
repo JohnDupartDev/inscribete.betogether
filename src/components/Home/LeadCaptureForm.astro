@@ -58,6 +58,7 @@ const termsId = `${instance}-terms`;
         class="space-y-4"
         data-betogether-lead-form
     >
+        <!-- NOMBRE -->
         <div class="space-y-2">
             <label
                 for={nameId}
@@ -86,6 +87,7 @@ const termsId = `${instance}-terms`;
             </div>
         </div>
 
+        <!-- WHATSAPP -->
         <div class="space-y-2">
             <label
                 for={phoneId}
@@ -121,12 +123,14 @@ const termsId = `${instance}-terms`;
             </p>
         </div>
 
+        <!-- HONEYPOT -->
         <div
             class="absolute -left-[9999px] h-0 w-0 overflow-hidden"
             aria-hidden="true"
         >
             <label>
                 Empresa
+
                 <input
                     name="company"
                     type="text"
@@ -136,6 +140,7 @@ const termsId = `${instance}-terms`;
             </label>
         </div>
 
+        <!-- CONSENTIMIENTO -->
         <label
             class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4"
         >
@@ -172,6 +177,7 @@ const termsId = `${instance}-terms`;
             </span>
         </label>
 
+        <!-- CTA FORMULARIO -->
         <button
             type="submit"
             data-submit-button
@@ -184,6 +190,35 @@ const termsId = `${instance}-terms`;
             <ArrowRight class="h-5 w-5" />
         </button>
 
+        <!-- SEPARADOR -->
+        <div class="flex items-center gap-3">
+            <div class="h-px flex-1 bg-slate-200"></div>
+
+            <span
+                class="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-slate-400"
+            >
+                o
+            </span>
+
+            <div class="h-px flex-1 bg-slate-200"></div>
+        </div>
+
+        <!-- CTA WHATSAPP -->
+        <a
+            href="https://wa.me/573155870958?text=Hola%2C%20tengo%20dudas%20sobre%20la%20convocatoria%20piloto%20de%20BeTogether."
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="¿Tienes dudas? Escríbeme a WhatsApp"
+            class="group flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#25D366] bg-[#25D366]/10 px-6 py-3.5 text-center text-sm font-bold text-[#128C4A] no-underline transition-all hover:-translate-y-0.5 hover:bg-[#25D366] hover:text-white active:scale-[0.99]"
+        >
+            <MessageCircle
+                class="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110"
+            />
+
+            ¿Tienes dudas? Escríbeme a WhatsApp
+        </a>
+
+        <!-- MENSAJES -->
         <div
             data-form-message
             class="hidden rounded-xl px-4 py-3 text-sm font-medium"
@@ -191,6 +226,7 @@ const termsId = `${instance}-terms`;
             aria-live="polite"
         ></div>
 
+        <!-- PRIVACIDAD -->
         <p
             class="flex items-center justify-center gap-2 text-center text-xs leading-relaxed text-slate-400"
         >
