@@ -4,9 +4,12 @@ import LeadCaptureForm from "./LeadCaptureForm.astro";
 ---
 
 <section
-    class="relative flex min-h-[calc(100vh-64px)] items-center overflow-hidden bg-[#171126] pb-28 pt-14 md:pt-28 lg:min-h-screen lg:pb-32 lg:pt-28"
+    class="relative flex min-h-[calc(100vh-64px)] items-center overflow-hidden bg-[#171126] pb-28 pt-24 md:pt-28 lg:min-h-screen lg:pb-32 lg:pt-28"
 >
+    <!-- ========================================================= -->
     <!-- FONDO CORPORATIVO -->
+    <!-- ========================================================= -->
+
     <div
         class="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
@@ -42,16 +45,33 @@ import LeadCaptureForm from "./LeadCaptureForm.astro";
         ></div>
     </div>
 
+    <!-- ========================================================= -->
     <!-- CONTENIDO -->
+    <!--
+        MÓVIL:
+        1. Antetítulo + titular
+        2. Formulario
+        3. Beneficios + CTA
+
+        DESKTOP:
+        Izquierda = todo el contenido
+        Derecha   = formulario
+    -->
+    <!-- ========================================================= -->
+
     <div
         class="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8"
     >
         <div
-            class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,57%)_minmax(340px,43%)] lg:gap-12 xl:gap-16"
+            class="grid grid-cols-1 gap-y-8 lg:grid-cols-[minmax(0,57%)_minmax(340px,43%)] lg:gap-x-12 lg:gap-y-0 xl:gap-x-16"
         >
-            <!-- MENSAJE -->
-            <div class="mx-auto w-full max-w-3xl lg:mx-0">
+            <!-- ================================================= -->
+            <!-- 1. INTRO / TITULAR -->
+            <!-- ================================================= -->
 
+            <div
+                class="order-1 mx-auto w-full max-w-3xl lg:col-start-1 lg:row-start-1 lg:mx-0"
+            >
                 <!-- ANTETÍTULO -->
                 <div class="mb-6 animate-fade-in">
                     <div
@@ -84,85 +104,126 @@ import LeadCaptureForm from "./LeadCaptureForm.astro";
                         cobros y entregas, en un solo lugar.
                     </span>
                 </h1>
+            </div>
 
-                <!-- SUBTÍTULO -->
+            <!-- ================================================= -->
+            <!-- 2. FORMULARIO -->
+            <!--
+                Móvil: inmediatamente debajo del título.
+                Desktop: columna derecha, centrado verticalmente.
+            -->
+            <!-- ================================================= -->
+
+            <div
+                id="postular-negocio"
+                class="order-2 mx-auto w-full max-w-md scroll-mt-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mx-0 lg:ml-auto lg:self-center"
+            >
+                <LeadCaptureForm
+                    instance="hero"
+                    compact={true}
+                />
+            </div>
+
+            <!-- ================================================= -->
+            <!-- 3. CONTENIDO SECUNDARIO -->
+            <!-- ================================================= -->
+
+            <div
+                class="order-3 mx-auto w-full max-w-3xl lg:col-start-1 lg:row-start-2 lg:mx-0 lg:mt-7"
+            >
+                <!-- PROPUESTA DE VALOR -->
                 <div
-                    class="mt-7 max-w-3xl text-base leading-7 text-white/75 md:text-[1.08rem] md:leading-8"
+                    class="max-w-3xl text-base leading-7 text-white/75 md:text-[1.08rem] md:leading-8"
                 >
                     <p class="font-semibold text-white">
                         Postúlate al piloto y empieza a vender con:
                     </p>
 
-                    <div class="mt-4 space-y-2.5">
-                        <p class="flex items-start gap-2">
+                    <div class="mt-4 space-y-3">
+                        <!-- BENEFICIO 1 -->
+                        <div class="flex items-start gap-2.5">
                             <CheckCircle2
                                 class="mt-1 h-5 w-5 shrink-0 text-[#ff54da]"
                             />
-                            <span>
+
+                            <p>
                                 Tu tienda en línea, lista en minutos y con tu propio link:
                                 <strong class="font-semibold text-white">
                                     betogether.com.co/tumarca
                                 </strong>
-                            </span>
-                        </p>
+                            </p>
+                        </div>
 
-                        <p class="flex items-start gap-2">
+                        <!-- BENEFICIO 2 -->
+                        <div class="flex items-start gap-2.5">
                             <CheckCircle2
                                 class="mt-1 h-5 w-5 shrink-0 text-[#ff54da]"
                             />
-                            <span>
+
+                            <p>
                                 Sin mensualidad: pagas solo
                                 <strong class="font-semibold text-white">
                                     9% + $1.000
                                 </strong>
                                 por cada venta exitosa
-                            </span>
-                        </p>
+                            </p>
+                        </div>
 
-                        <p class="flex items-start gap-2">
+                        <!-- BENEFICIO 3 -->
+                        <div class="flex items-start gap-2.5">
                             <CheckCircle2
                                 class="mt-1 h-5 w-5 shrink-0 text-[#ff54da]"
                             />
-                            <span>
+
+                            <p>
                                 Sin tarjeta de crédito para registrarte
-                            </span>
-                        </p>
+                            </p>
+                        </div>
 
-                        <p class="flex items-start gap-2">
+                        <!-- BENEFICIO 4 -->
+                        <div class="flex items-start gap-2.5">
                             <CheckCircle2
                                 class="mt-1 h-5 w-5 shrink-0 text-[#ff54da]"
                             />
-                            <span>
+
+                            <p>
                                 Pasarela de pagos integrada: tu cliente paga con
                                 diferentes medios disponibles y en segundos
-                            </span>
-                        </p>
+                            </p>
+                        </div>
 
-                        <p class="flex items-start gap-2">
+                        <!-- BENEFICIO 5 -->
+                        <div class="flex items-start gap-2.5">
                             <CheckCircle2
                                 class="mt-1 h-5 w-5 shrink-0 text-[#ff54da]"
                             />
-                            <span>
+
+                            <p>
                                 Entregas en 24 horas al agendar, en
                                 <strong class="font-semibold text-white">
                                     Bogotá, Chía, Cajicá y Soacha
                                 </strong>
-                            </span>
-                        </p>
+                            </p>
+                        </div>
 
-                        <p class="flex items-start gap-2">
+                        <!-- BENEFICIO 6 -->
+                        <div class="flex items-start gap-2.5">
                             <CheckCircle2
                                 class="mt-1 h-5 w-5 shrink-0 text-[#ff54da]"
                             />
-                            <span>
+
+                            <p>
                                 Tres meses de acompañamiento para montar tu tienda
                                 y lograr tus primeras ventas
-                            </span>
-                        </p>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
+                <!-- ================================================= -->
                 <!-- RESUMEN VISUAL -->
+                <!-- ================================================= -->
+
                 <div
                     class="mt-7 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3"
                     aria-hidden="true"
@@ -173,6 +234,7 @@ import LeadCaptureForm from "./LeadCaptureForm.astro";
                         <CheckCircle2
                             class="h-4 w-4 shrink-0 text-[#ff54da]"
                         />
+
                         Tienda propia
                     </div>
 
@@ -182,6 +244,7 @@ import LeadCaptureForm from "./LeadCaptureForm.astro";
                         <CheckCircle2
                             class="h-4 w-4 shrink-0 text-[#ff54da]"
                         />
+
                         Pagos integrados
                     </div>
 
@@ -191,13 +254,30 @@ import LeadCaptureForm from "./LeadCaptureForm.astro";
                         <CheckCircle2
                             class="h-4 w-4 shrink-0 text-[#ff54da]"
                         />
+
                         Entregas en 24 h
                     </div>
                 </div>
 
+                <!-- ================================================= -->
                 <!-- CTA -->
+                <!--
+                    En móvil ya vio el formulario antes, pero mantenemos
+                    este CTA para poder volver a él fácilmente.
+                -->
+                <!-- ================================================= -->
+
                 <div class="mt-8">
-                   
+                    <a
+                        href="#postular-negocio"
+                        class="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ff00c8] to-[#7000ff] px-7 py-4 text-center text-base font-bold text-white no-underline shadow-[0_14px_40px_rgba(150,0,255,.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(255,0,200,.34)] sm:w-auto sm:rounded-full sm:px-8"
+                    >
+                        Postular mi negocio
+
+                        <ArrowRight
+                            class="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                        />
+                    </a>
 
                     <p
                         class="mt-3 max-w-xl text-sm leading-relaxed text-white/55"
@@ -206,21 +286,13 @@ import LeadCaptureForm from "./LeadCaptureForm.astro";
                     </p>
                 </div>
             </div>
-
-            <!-- FORMULARIO -->
-            <div
-                id="postular-negocio"
-                class="mx-auto w-full max-w-md scroll-mt-24 lg:mx-0 lg:ml-auto"
-            >
-                <LeadCaptureForm
-                    instance="hero"
-                    compact={true}
-                />
-            </div>
         </div>
     </div>
 
+    <!-- ========================================================= -->
     <!-- DIVISOR -->
+    <!-- ========================================================= -->
+
     <div
         class="wave-divider"
         aria-hidden="true"
